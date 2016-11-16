@@ -8,7 +8,7 @@ public class Tafel {
 		this.aantalZitplaatsen = aantalZitplaatsen;
 	}
 	
-	public static void main(String[] args){
+	public void maakRuimte(){
 		int aantalTafels = 3;
 		
 		Tafel t0 = new Tafel(4);

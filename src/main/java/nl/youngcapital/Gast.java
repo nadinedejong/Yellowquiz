@@ -1,12 +1,26 @@
 package nl.youngcapital;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Entity;   //gecopypaste
+
+@Entity
 public class Gast {
 	private String naam; 
 	private int leeftijd; 
 	private boolean vrouw;
+	private long id; 
 	
-
-
+	//database ID van bloem. Hibernate genereert onze IDs. 
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	public long getId() {
+		return id;
+	}
+	public void setId(long id) {
+		this.id = id;
+	}
 	public boolean isVrouw() {
 		return vrouw;
 	}
