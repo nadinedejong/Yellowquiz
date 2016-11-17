@@ -17,11 +17,9 @@ We hebben de volgende gasten:
 	</c:forEach>
 </ol>
 
-
-
 Vul hier de gasten in:
 
-<form method="post">
+<form method="post" action="/index">
 	Naam: <input type = "text" name="naam">
 	Leeftijd: <input type = "text" name="leeftijd">
 	Geslacht:
@@ -31,5 +29,9 @@ Vul hier de gasten in:
 	<input type="submit">
 </form>
 
+
+
+Voer hier gegevens over de accomodatie in: 
+<a href="accomodatie">accomodatie</a>
 </body>
 </html>

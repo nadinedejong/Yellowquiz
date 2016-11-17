@@ -1,5 +1,7 @@
 package nl.youngcapital;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,8 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import nl.youngcapital.Gast;
-import nl.youngcapital.GastenRepository;
 
 @Controller
 public class TableController {
@@ -17,12 +17,29 @@ public class TableController {
 	@Autowired
 	private GastenRepository repo;
 	
-	//deze geeft de naam van de jsp file "hello" terug, want is geen responsebody
 	@RequestMapping("/index")
 	public String overzicht(Model model){
 		model.addAttribute("gastenlijst", repo.findAll());
 		return "Index";
 	}
+	
+	@RequestMapping(value="/accomodatie")
+	public String accomodatie(Model model){
+		return "ruimte";
+	}
+
+	@RequestMapping(value="/accomodatie", method=RequestMethod.POST)
+	public String maakRuimte(int aantalTafels){
+		Ruimte zaal = new Ruimte();
+		zaal.setAantalTafels(aantalTafels);
+		return "ruimte2";
+	}
+	
+//	@RequestMapping(value="/accomodatie", method=RequestMethod.POST)
+//	public String maakTafels(ArrayList<Integer> tafels){
+	
+//		return "Index";
+//	}
 	
 	@RequestMapping(value="/index", method=RequestMethod.POST)
 	public String maakGast(String naam, int leeftijd, boolean vrouw){
@@ -41,8 +58,7 @@ public class TableController {
 			resp.setStatus(404);
 			return null; 
 		}
-		repo.delete(b);
-		
+		repo.delete(b);	
 		//redirect naar overzicht pagina, nieuwe get request. 
 		return "redirect:index";
 	}
