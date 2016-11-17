@@ -29,9 +29,14 @@ Vul hier de gasten in:
 	<input type="submit">
 </form>
 
+Voeg een nieuwe tafel toe:  
 
-
-Voer hier gegevens over de accomodatie in: 
-<a href="accomodatie">accomodatie</a>
-</body>
-</html>
+<form method="post" action="/index">
+	Aantal stoelen: <input type = "text" name="stoelen">
+	Vorm tafel: <select name="Vorm">
+					<option value="Vorm.ROND">rond</option>
+					<option value="Vorm.VIERKANT">vierkant</option>
+					<option value="Vorm.RECHTHOEK">rechthoek</option>
+				</select>
+	<input type="submit">
+</form>

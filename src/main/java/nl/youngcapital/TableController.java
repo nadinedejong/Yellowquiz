@@ -1,7 +1,5 @@
 package nl.youngcapital;
 
-import java.util.ArrayList;
-
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,29 +15,24 @@ public class TableController {
 	@Autowired
 	private GastenRepository repo;
 	
+	@Autowired
+	private TafelRepository tafelRepo; 
+	
 	@RequestMapping("/index")
 	public String overzicht(Model model){
 		model.addAttribute("gastenlijst", repo.findAll());
+		model.addAttribute("tafels", repo.findAll());
 		return "Index";
 	}
 	
-	@RequestMapping(value="/accomodatie")
-	public String accomodatie(Model model){
-		return "ruimte";
-	}
-
-	@RequestMapping(value="/accomodatie", method=RequestMethod.POST)
-	public String maakRuimte(int aantalTafels){
-		Ruimte zaal = new Ruimte();
-		zaal.setAantalTafels(aantalTafels);
-		return "ruimte2";
+	@RequestMapping(value="/index", method=RequestMethod.POST)
+	public String maakTafel(int stoelen){
+		Tafel t = new Tafel();
+		t.setStoelen(stoelen);
+		tafelRepo.save(t);
+		return "redirect:index";
 	}
 	
-//	@RequestMapping(value="/accomodatie", method=RequestMethod.POST)
-//	public String maakTafels(ArrayList<Integer> tafels){
-	
-//		return "Index";
-//	}
 	
 	@RequestMapping(value="/index", method=RequestMethod.POST)
 	public String maakGast(String naam, int leeftijd, boolean vrouw){
@@ -63,10 +56,23 @@ public class TableController {
 		return "redirect:index";
 	}
 	
+	//dit is onzin
 	//deze geeft letterlijk de string "goulash" terug, want is een responsebody
 	@RequestMapping("/pagina2")
 	public @ResponseBody String eten(){
 		return "Goulash";
+	}
+	
+	@RequestMapping(value="/accomodatie")
+	public String accomodatie(Model model){
+		return "ruimte";
+	}
+
+	@RequestMapping(value="/accomodatie", method=RequestMethod.POST)
+	public String maakRuimte(int aantalTafels){
+		Ruimte zaal = new Ruimte();
+		zaal.setAantalTafels(aantalTafels);
+		return "ruimte2";
 	}
 	
 	
