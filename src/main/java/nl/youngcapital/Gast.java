@@ -12,7 +12,14 @@ public class Gast {
 	private boolean vrouw;
 	private long id; 
 	
+//	private long tafel_id; 
 	
+//	public long getTafel_id() {
+//		return tafel_id;
+//	}
+//	public void setTafel_id(long tafel_id) {
+//		this.tafel_id = tafel_id;
+//	}
 	//database ID van bloem. Hibernate genereert onze IDs. 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)

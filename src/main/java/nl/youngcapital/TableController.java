@@ -1,5 +1,8 @@
 package nl.youngcapital;
 
+import java.util.ArrayList;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class TableController {
+	
 	
 	@Autowired
 	private GastenRepository gastenRepo;
@@ -30,6 +34,7 @@ public class TableController {
 		Tafel t = new Tafel();
 		t.setStoelen(stoelen);
 		tafelRepo.save(t);
+//		t.getGasten().add(e);
 		return "redirect:index";
 		}
 	
@@ -44,15 +49,21 @@ public class TableController {
 		//redirect naar overzicht pagina, nieuwe get request. 
 		return "redirect:index";
 	}
-	
+
 	
 	@RequestMapping(value="/maakGast", method=RequestMethod.POST)
-	public String maakGast(String naam, int leeftijd, boolean vrouw){
+	public String voegToe(String naam, int leeftijd, boolean vrouw){
 		Gast b = new Gast();
 		b.setNaam(naam);
 		b.setLeeftijd(leeftijd);
 		b.setVrouw(vrouw);
 		gastenRepo.save(b);
+		
+		Tafel t = tafelRepo.findOne(3l);
+		ArrayList<Gast> lijst = new ArrayList<>();
+		lijst.add(b);
+		t.setGasten(lijst);
+		tafelRepo.save(t);
 		return "redirect:index";
 	}
 	
