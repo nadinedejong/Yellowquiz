@@ -13,13 +13,13 @@ We hebben de volgende gasten:
 	<c:forEach items="${gastenlijst}" var="b">
 		<li> Naam: ${b.naam}, Leeftijd: ${b.leeftijd},
 		Geslacht: <c:if test="${b.vrouw == true}"> vrouw </c:if> <c:if test="${b.vrouw == false}"> man </c:if>  
-		<a href="delete?id=${b.id}">verwijder</a> </li> 
+		<a href="deleteGast?id=${b.id}">verwijder</a> </li> 
 	</c:forEach>
 </ol>
 
-Vul hier de gasten in:
+Voeg een nieuwe gast toe:
 
-<form method="post" action="/index">
+<form method="post" action="/maakGast">
 	Naam: <input type = "text" name="naam">
 	Leeftijd: <input type = "text" name="leeftijd">
 	Geslacht:
@@ -28,10 +28,18 @@ Vul hier de gasten in:
 			<option value="true">vrouw</option></select>
 	<input type="submit">
 </form>
+<br><br><br>
+We hebben de volgende tafels: 
+<ol>
+	<c:forEach items="${tafels}" var="t">
+		<li> Aantal stoelen: ${t.stoelen}  
+		<a href="deleteTafel?id=${t.id}">verwijder</a> </li> 
+	</c:forEach>
+</ol>
 
 Voeg een nieuwe tafel toe:  
 
-<form method="post" action="/index">
+<form method="post" action="/maakTafel">
 	Aantal stoelen: <input type = "text" name="stoelen">
 	Vorm tafel: <select name="Vorm">
 					<option value="Vorm.ROND">rond</option>

@@ -13,45 +13,57 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class TableController {
 	
 	@Autowired
-	private GastenRepository repo;
+	private GastenRepository gastenRepo;
 	
 	@Autowired
 	private TafelRepository tafelRepo; 
 	
 	@RequestMapping("/index")
 	public String overzicht(Model model){
-		model.addAttribute("gastenlijst", repo.findAll());
-		model.addAttribute("tafels", repo.findAll());
+		model.addAttribute("gastenlijst", gastenRepo.findAll());
+		model.addAttribute("tafels", tafelRepo.findAll());
 		return "Index";
 	}
 	
-	@RequestMapping(value="/index", method=RequestMethod.POST)
+	@RequestMapping(value="/maakTafel", method=RequestMethod.POST)
 	public String maakTafel(int stoelen){
 		Tafel t = new Tafel();
 		t.setStoelen(stoelen);
 		tafelRepo.save(t);
 		return "redirect:index";
+		}
+	
+	@RequestMapping(value="/deleteTafel")
+	public String deleteTafel(long id, HttpServletResponse resp){
+		Tafel t = tafelRepo.findOne(id);
+		if (t==null){
+			resp.setStatus(404);
+			return null; 
+		}
+		tafelRepo.delete(t);	
+		//redirect naar overzicht pagina, nieuwe get request. 
+		return "redirect:index";
 	}
 	
 	
-	@RequestMapping(value="/index", method=RequestMethod.POST)
+	@RequestMapping(value="/maakGast", method=RequestMethod.POST)
 	public String maakGast(String naam, int leeftijd, boolean vrouw){
 		Gast b = new Gast();
 		b.setNaam(naam);
 		b.setLeeftijd(leeftijd);
 		b.setVrouw(vrouw);
-		repo.save(b);
+		gastenRepo.save(b);
 		return "redirect:index";
 	}
 	
-	@RequestMapping(value="/delete")
+	@RequestMapping(value="/deleteGast")
 	public String deleteGast(long id, HttpServletResponse resp){
-		Gast b = repo.findOne(id);
+		Gast b = gastenRepo.findOne(id);
 		if (b==null){
 			resp.setStatus(404);
 			return null; 
 		}
-		repo.delete(b);	
+		gastenRepo.delete(b);	
 		//redirect naar overzicht pagina, nieuwe get request. 
 		return "redirect:index";
 	}

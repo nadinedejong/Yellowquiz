@@ -12,6 +12,7 @@ public class Gast {
 	private boolean vrouw;
 	private long id; 
 	
+	
 	//database ID van bloem. Hibernate genereert onze IDs. 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
