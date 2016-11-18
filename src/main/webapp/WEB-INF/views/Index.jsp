@@ -12,7 +12,7 @@
 
 
 <body>
-
+<!-- Hier is het beginformulier -->
 
 
 <!-- Hier begint het formulier om de gasten toe te voegen, met tabel erin -->
@@ -73,6 +73,7 @@
 			<th>Actie</th>
 		</tr>
 
+		<!--  Rij 2 t/m... (dus de ingevoerde tafels) -->
 	<c:forEach items="${tafels}" var="t" varStatus="aant">
 		<tr><td>Tafel ${aant.count}</td>
 			<td>${t.stoelen}</td>
@@ -81,9 +82,9 @@
 		</tr>
 	</c:forEach>
 
-
+		<!--  Laatste rij (nieuwe tafel toevoegen) -->
 		<tr>
-			<td>Nieuwe gast</td>
+			<td>Nieuwe tafel</td>
 			<td><input type = "text" name="stoelen"></td>
 			<td><select name="Vorm">
 					<option value="Vorm.ROND">rond</option>
@@ -103,7 +104,7 @@
 
 
 
-We plaatsen de gasten aan tafels
+<h3> We plaatsen de gasten aan tafels </h3>
 <ol>
 	<c:forEach items="${gastenlijst}" var="g">
 		<li> Naam: ${g.naam} 
