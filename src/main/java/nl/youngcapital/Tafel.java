@@ -17,8 +17,7 @@ public class Tafel {
 	private enum Vorm {ROND, VIERKANT, RECHTHOEK}
 	private List<Gast> gasten = new ArrayList<>();
 	
-	@OneToMany
-	@JoinColumn(name="tafel_id")
+	@OneToMany(mappedBy = "tafel")
 	public List<Gast> getGasten() {
 		return gasten;
 	}
@@ -39,5 +38,12 @@ public class Tafel {
 	}
 	public void setStoelen(int stoelen) {
 		this.stoelen = stoelen;
+	}
+	
+	public void plaatsGast(Gast g){
+		if (this.getStoelen() > this.getGasten().size()){
+			this.getGasten().add(g);
+			g.setTafel(this);
+		}
 	}
 }

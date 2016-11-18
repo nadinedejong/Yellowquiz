@@ -1,23 +1,15 @@
 package nl.youngcapital;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.assertj.core.util.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class TableController {
-	
-	
 	@Autowired
 	private GastenRepository gastenRepo;
 	
@@ -59,20 +51,13 @@ public class TableController {
 		b.setNaam(naam);
 		b.setLeeftijd(leeftijd);
 		b.setVrouw(vrouw);
-		gastenRepo.save(b);
-	//	gastAanTafel(4l, 4l);
+		b = gastenRepo.save(b);
+		
+//		Tafel tafel = tafelRepo.findOne(2L);
+//		tafel.plaatsGast(b);
+//		b = gastenRepo.save(b);
+//		tafel = tafelRepo.save(tafel);
 		return "redirect:index"; 
-	}
-	
-	@RequestMapping(value="/zetGastAanTafel")
-	public String gastAanTafel(long id, HttpServletResponse resp){
-		Tafel t = tafelRepo.findOne(5l); //moet als parameter mee kunnen
-		Gast g = gastenRepo.findOne(id);
-		if (t.getStoelen() > t.getGasten().size()){
-			t.getGasten().add(g);
-			tafelRepo.save(t);
-		}
-		return "redirect:index";
 	}
 	
 	@RequestMapping(value="/deleteGast")
@@ -87,24 +72,43 @@ public class TableController {
 		return "redirect:index";
 	}
 	
-	//dit is onzin
-	//deze geeft letterlijk de string "goulash" terug, want is een responsebody
-	@RequestMapping("/pagina2")
-	public @ResponseBody String eten(){
-		return "Goulash";
-	}
-	
-	@RequestMapping(value="/accomodatie")
-	public String accomodatie(Model model){
-		return "ruimte";
-	}
+	public boolean zetGastAanTafel(Gast g, Tafel t){
+		if (t.getStoelen() > t.getGasten().size()){
+			t.plaatsGast(g);
+			g.setTafel(t);
+			g = gastenRepo.save(g);
+			t = tafelRepo.save(t);
+			return true;
+		}	else {return false;}
+	}	
 
-	@RequestMapping(value="/accomodatie", method=RequestMethod.POST)
-	public String maakRuimte(int aantalTafels){
-		Ruimte zaal = new Ruimte();
-		zaal.setAantalTafels(aantalTafels);
-		return "ruimte2";
+	
+	@RequestMapping(value="/plaatsGasten")
+	public String plaatsGasten(){
+		int totaalStoelen=0; 
+		Iterable<Tafel> tafels = tafelRepo.findAllByOrderById();
+		Iterable<Gast> gasten = gastenRepo.findAllByOrderById();
+		
+		for (Tafel t: tafels){
+			totaalStoelen += t.getStoelen();
+		}
+		if (gastenRepo.count() > totaalStoelen){
+			// er zijn geen genoeg stoelen!!!
+		} else { // plaats gasten aan tafels
+			for (Tafel t: tafels){
+				for (Gast g: gasten){
+					if (zetGastAanTafel(g, t)== false) break;
+				}
+			}
+		}
+		return "redirect:index";
+	}	
+	
+	public static int getLength(Iterable<Gast> list){
+		int size = 0;
+		for(Gast value : list) {
+		   size++;
+		}
+		return size;
 	}
-	
-	
 }

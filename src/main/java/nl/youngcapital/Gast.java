@@ -1,9 +1,10 @@
 package nl.youngcapital;
 
+import javax.persistence.Entity;   //gecopypaste
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Entity;   //gecopypaste
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Gast {
@@ -11,15 +12,20 @@ public class Gast {
 	private int leeftijd; 
 	private boolean vrouw;
 	private long id; 
+	private Tafel tafel;
 	
-//	private long tafel_id; 
+	@ManyToOne()
+	public Tafel getTafel() {
+		return tafel;
+	}
+	public void setTafel(Tafel tafel) {
+		this.tafel = tafel;
+	}
 	
-//	public long getTafel_id() {
-//		return tafel_id;
-//	}
-//	public void setTafel_id(long tafel_id) {
-//		this.tafel_id = tafel_id;
-//	}
+	public Gast(){
+		
+	}
+
 	//database ID van bloem. Hibernate genereert onze IDs. 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)

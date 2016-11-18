@@ -34,7 +34,7 @@ Voeg een nieuwe gast toe:
 We hebben de volgende tafels: 
 <ol>
 	<c:forEach items="${tafels}" var="t">
-		<li> Aantal stoelen: ${t.stoelen}  
+		<li> Aantal stoelen: ${t.stoelen}, tafel ID: ${t.id}
 		<a href="deleteTafel?id=${t.id}">verwijder</a> </li> 
 	</c:forEach>
 </ol>
@@ -50,11 +50,16 @@ Voeg een nieuwe tafel toe:
 				</select>
 	<input type="submit">
 </form>
+<br><br><br>
+<a href="plaatsGasten">Plaats de gasten</a>
+<br>
 
-We plaatsen de gasten aan tafels
+
+Tafellijst gasten
 <ol>
 	<c:forEach items="${gastenlijst}" var="g">
-		<li> Naam: ${g.naam} 
-			<a href="zetGastAanTafel?id=${g.id}">gast aan tafel</a> </li> 
+		<li> Naam: ${g.naam}, Tafel: ${g.tafel.id} </li> 
 	</c:forEach>
 </ol>
+
+
