@@ -1,5 +1,6 @@
 package nl.youngcapital;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -14,7 +15,7 @@ public class Tafel {
 	private long id; 
 	private int stoelen; 
 	private enum Vorm {ROND, VIERKANT, RECHTHOEK}
-	private List<Gast> gasten; 
+	private List<Gast> gasten = new ArrayList<>();
 	
 	@OneToMany
 	@JoinColumn(name="tafel_id")

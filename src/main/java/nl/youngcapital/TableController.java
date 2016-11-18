@@ -1,10 +1,12 @@
 package nl.youngcapital;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.assertj.core.util.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -58,13 +60,25 @@ public class TableController {
 		b.setLeeftijd(leeftijd);
 		b.setVrouw(vrouw);
 		gastenRepo.save(b);
-		
-		Tafel t = tafelRepo.findOne(3l);
-		ArrayList<Gast> lijst = new ArrayList<>();
-		lijst.add(b);
-		t.setGasten(lijst);
+		gastAanTafel(4l, 4l);
+		return "redirect:index"; 
+	}
+	
+	//experimentje!!! 
+	@RequestMapping(value="/zetGastAanTafel", method=RequestMethod.POST)
+	public String gastAanTafel(long tafel_id, long gast_id){
+		Tafel t = tafelRepo.findOne(tafel_id);
+		Gast g = gastenRepo.findOne(gast_id);
+		t.getGasten().add(g);
 		tafelRepo.save(t);
 		return "redirect:index";
+		
+		//crasht op deze regel:
+//		ArrayList<Gast> myList = Lists.newArrayList(myIterator);
+		
+//		Tafel t = tafelRepo.findOne(id); 
+//		t.setGasten(myList);
+//		tafelRepo.save(t);
 	}
 	
 	@RequestMapping(value="/deleteGast")

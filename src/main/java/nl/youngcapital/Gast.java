@@ -47,7 +47,4 @@ public class Gast {
 	public void setLeeftijd(int leeftijd) {
 		this.leeftijd = leeftijd;
 	}
-	
-	
-	
 }

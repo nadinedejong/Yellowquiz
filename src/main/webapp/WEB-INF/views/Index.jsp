@@ -28,6 +28,8 @@ Voeg een nieuwe gast toe:
 			<option value="true">vrouw</option></select>
 	<input type="submit">
 </form>
+
+
 <br><br><br>
 We hebben de volgende tafels: 
 <ol>
