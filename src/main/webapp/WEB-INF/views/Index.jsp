@@ -5,10 +5,32 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+
+ <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <style>
+            body {
+                padding-top: 50px;
+                padding-bottom: 20px;
+            }
+        </style>
+        <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="css/main.css">
+
+        <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+
 <title>Tafelzetting</title>
 </head>
 <body>
-We hebben de volgende gasten: 
+We hebben de volgende gasten:
+
+ 
 <ol>
 	<c:forEach items="${gastenlijst}" var="b">
 		<li> Naam: ${b.naam}, Leeftijd: ${b.leeftijd},
@@ -18,7 +40,6 @@ We hebben de volgende gasten:
 </ol>
 
 Voeg een nieuwe gast toe:
-
 <form method="post" action="/maakGast">
 	Naam: <input type = "text" name="naam">
 	Leeftijd: <input type = "text" name="leeftijd">
