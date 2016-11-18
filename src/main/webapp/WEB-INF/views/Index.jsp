@@ -50,3 +50,11 @@ Voeg een nieuwe tafel toe:
 				</select>
 	<input type="submit">
 </form>
+
+We plaatsen de gasten aan tafels
+<ol>
+	<c:forEach items="${gastenlijst}" var="g">
+		<li> Naam: ${g.naam} 
+			<a href="zetGastAanTafel?id=${g.id}">gast aan tafel</a> </li> 
+	</c:forEach>
+</ol>

@@ -60,25 +60,19 @@ public class TableController {
 		b.setLeeftijd(leeftijd);
 		b.setVrouw(vrouw);
 		gastenRepo.save(b);
-		gastAanTafel(4l, 4l);
+	//	gastAanTafel(4l, 4l);
 		return "redirect:index"; 
 	}
 	
-	//experimentje!!! 
-	@RequestMapping(value="/zetGastAanTafel", method=RequestMethod.POST)
-	public String gastAanTafel(long tafel_id, long gast_id){
-		Tafel t = tafelRepo.findOne(tafel_id);
-		Gast g = gastenRepo.findOne(gast_id);
-		t.getGasten().add(g);
-		tafelRepo.save(t);
+	@RequestMapping(value="/zetGastAanTafel")
+	public String gastAanTafel(long id, HttpServletResponse resp){
+		Tafel t = tafelRepo.findOne(5l); //moet als parameter mee kunnen
+		Gast g = gastenRepo.findOne(id);
+		if (t.getStoelen() > t.getGasten().size()){
+			t.getGasten().add(g);
+			tafelRepo.save(t);
+		}
 		return "redirect:index";
-		
-		//crasht op deze regel:
-//		ArrayList<Gast> myList = Lists.newArrayList(myIterator);
-		
-//		Tafel t = tafelRepo.findOne(id); 
-//		t.setGasten(myList);
-//		tafelRepo.save(t);
 	}
 	
 	@RequestMapping(value="/deleteGast")
