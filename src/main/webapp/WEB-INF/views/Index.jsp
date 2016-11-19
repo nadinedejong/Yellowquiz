@@ -51,7 +51,7 @@ Voeg een nieuwe tafel toe:
 	<input type="submit">
 </form>
 <br><br><br>
-<a href="plaatsGasten">Plaats de gasten</a>
+<a href="plaatsGasten">Plaats de gasten randomly</a>
 <br>
 
 

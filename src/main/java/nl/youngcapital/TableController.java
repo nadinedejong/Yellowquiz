@@ -1,5 +1,8 @@
 package nl.youngcapital;
 
+import java.util.Iterator;
+import java.util.List;
+
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,6 +75,34 @@ public class TableController {
 		return "redirect:index";
 	}
 	
+	@RequestMapping(value="/plaatsGasten")
+	public String plaatsGasten(){
+		Iterable<Tafel> tafels = tafelRepo.findAllByOrderById();
+		Iterable<Gast> gasten  = gastenRepo.findAllByOrderById();
+		
+		int totaalStoelen=0; 
+		for (Tafel t: tafels){
+			totaalStoelen += t.getStoelen();
+		}
+		
+		if (gastenRepo.count() > totaalStoelen){ // er zijn geen genoeg stoelen!! geef een melding.
+		} else {  
+			for (Gast g: gasten){	
+				int stoelNr = 0;
+				for (Tafel t: tafels){
+					// Gast g komt op de volgende stoel te zitten:
+					int randomStoel = (int)(Math.random() * totaalStoelen);
+					//aan welke tafel staat deze stoel? 
+					stoelNr += t.getStoelen();
+					if (randomStoel <= stoelNr) { //gast komt aan deze tafel te zitten als er plek is
+						if (zetGastAanTafel(g, t)) break; //gast is geplaatst, kunnen naar volgende gast
+					}
+				}		
+			}
+		}
+		return "redirect:index";
+	}	
+	
 	public boolean zetGastAanTafel(Gast g, Tafel t){
 		if (t.getStoelen() > t.getGasten().size()){
 			t.plaatsGast(g);
@@ -81,30 +112,16 @@ public class TableController {
 			return true;
 		}	else {return false;}
 	}	
-
 	
-	@RequestMapping(value="/plaatsGasten")
-	public String plaatsGasten(){
-		int totaalStoelen=0; 
-		Iterable<Tafel> tafels = tafelRepo.findAllByOrderById();
-		Iterable<Gast> gasten = gastenRepo.findAllByOrderById();
-		
-		for (Tafel t: tafels){
-			totaalStoelen += t.getStoelen();
+	public static int getSizeT(Iterable<Tafel> list){
+		int size = 0;
+		for(Tafel value : list) {
+		   size++;
 		}
-		if (gastenRepo.count() > totaalStoelen){
-			// er zijn geen genoeg stoelen!!!
-		} else { // plaats gasten aan tafels
-			for (Tafel t: tafels){
-				for (Gast g: gasten){
-					if (zetGastAanTafel(g, t)== false) break;
-				}
-			}
-		}
-		return "redirect:index";
-	}	
+		return size;
+	}
 	
-	public static int getLength(Iterable<Gast> list){
+	public static int getSizeG(Iterable<Gast> list){
 		int size = 0;
 		for(Gast value : list) {
 		   size++;

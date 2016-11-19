@@ -44,6 +44,8 @@ public class Tafel {
 		if (this.getStoelen() > this.getGasten().size()){
 			this.getGasten().add(g);
 			g.setTafel(this);
+		} else {
+			//throw an exception 
 		}
 	}
 }
