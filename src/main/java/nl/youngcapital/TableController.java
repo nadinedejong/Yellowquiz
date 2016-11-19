@@ -28,10 +28,8 @@ public class TableController {
 	
 	@RequestMapping(value="/maakTafel", method=RequestMethod.POST)
 	public String maakTafel(int stoelen){
-		Tafel t = new Tafel();
-		t.setStoelen(stoelen);
+		Tafel t = new Tafel(stoelen);
 		tafelRepo.save(t);
-//		t.getGasten().add(e);
 		return "redirect:index";
 		}
 		
@@ -42,11 +40,6 @@ public class TableController {
 		b.setLeeftijd(leeftijd);
 		b.setVrouw(vrouw);
 		b = gastenRepo.save(b);
-		
-//		Tafel tafel = tafelRepo.findOne(2L);
-//		tafel.plaatsGast(b);
-//		b = gastenRepo.save(b);
-//		tafel = tafelRepo.save(tafel);
 		return "redirect:index"; 
 	}
 	
@@ -71,7 +64,7 @@ public class TableController {
 		}
 		List<Gast> gasten = t.getGasten();
 		for (Gast g: gasten){
-			g.setTafel(null);
+			g.setTafel(null); 
 		}
 		tafelRepo.delete(t);	
 		//redirect naar overzicht pagina, nieuwe get request. 
@@ -82,7 +75,7 @@ public class TableController {
 	public String plaatsGasten(){
 		Iterable<Tafel> tafels = tafelRepo.findAllByOrderById();
 		Iterable<Gast> gasten  = gastenRepo.findAllByOrderById();
-		int iterations = 10; 
+		int iterations = 5; 
 		
 		int totaalStoelen=0; 
 		for (Tafel t: tafels){totaalStoelen += t.getStoelen();}
@@ -92,20 +85,25 @@ public class TableController {
 			int max_score = 0;
 			int score = 0;
 			for (int i = 0; i<iterations; i++){
+				for (Tafel t: tafels){t.getGasten().clear();}//gastenlijst per tafel leegmaken
 				for (Gast g: gasten){	
 					int stoelNr = 0;
 					for (Tafel t: tafels){
-						// Gast g komt op de volgende stoel te zitten:
-						int randomStoel = (int)(Math.random() * totaalStoelen);
-						//aan welke tafel staat deze stoel? 
-						stoelNr += t.getStoelen();
+						int randomStoel = (int)(Math.random() * totaalStoelen);// zitplaats gast random
+						stoelNr += t.getStoelen(); //aan welke tafel staat deze stoel? 
 						if (randomStoel <= stoelNr) { //gast komt aan deze tafel te zitten als er plek is
-							if (zetGastAanTafel(g, t)) break; //gast is geplaatst, kunnen naar volgende gast
+							if (zetGastAanTafel(g, t)) break; //gast is geplaatst if true, kunnen naar volgende gast
 						}
 					}		
 				}
-				//update score
+				//update score, code nog schrijven
 				if (score > max_score){/*bewaar deze tafelschikking*/}
+				System.out.println("Iteratie "+i);  //log
+				for (Tafel t: tafels){//log
+					System.out.println("Tafel ID is " + t.getId() +", gastenlijst:");//log
+					for (int z=0; z<t.getGasten().size(); z++)//log
+						System.out.println("stoelnr: " + z+" naam is: "+ t.getGasten().get(z).getNaam());//log
+				}//log
 			}
 		}
 		return "redirect:index";
@@ -113,7 +111,7 @@ public class TableController {
 	
 	public boolean zetGastAanTafel(Gast g, Tafel t){
 		if (t.getStoelen() > t.getGasten().size()){
-			t.plaatsGast(g);
+			t.plaatsGast(g);		
 			g.setTafel(t);
 			g = gastenRepo.save(g);
 			t = tafelRepo.save(t);

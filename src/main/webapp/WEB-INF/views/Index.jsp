@@ -60,6 +60,18 @@ Tafellijst gasten
 		<li> Naam: ${g.naam}, Tafel: ${g.tafel.id} </li> 
 	</c:forEach>
 </ol>
+<br>
+Gastenlijst Per Tafel
+<ol>
+	<c:forEach items="${tafels}" var="t">
+		<li> Tafel ID: ${t.id}, Aantal stoelen: ${t.stoelen} <br> 
+			Gasten:
+			<c:forEach items="${t.gasten}" var="g">     
+				${g.naam},
+			</c:forEach>
+		</li> 
+	</c:forEach>
+</ol>
 
 </body>
 </html>

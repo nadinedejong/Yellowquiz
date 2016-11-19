@@ -13,9 +13,15 @@ import javax.persistence.OneToMany;
 @Entity
 public class Tafel {
 	private long id; 
-	private int stoelen; 
-	private enum Vorm {ROND, VIERKANT, RECHTHOEK}
+	private int stoelen;
+	private enum Vorm {ROND, VIERKANT, RECHTHOEK} // nog niet gebruikt
 	private List<Gast> gasten = new ArrayList<>();
+	
+	public Tafel(int stoelen){
+		this.setStoelen(stoelen);
+	}
+	
+	public Tafel(){} // Waarom is deze nodig ???
 	
 	@OneToMany(mappedBy = "tafel")
 	public List<Gast> getGasten() {
