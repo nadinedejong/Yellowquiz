@@ -6,11 +6,16 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Accomodatie</title>
+<title>TafelSchikking</title>
 </head>
 <body>
-Voer per tafel het aantal stoelen in. 
 
+Tafellijst gasten
+<ol>
+	<c:forEach items="${gastenlijst}" var="g">
+		<li> Naam: ${g.naam}, Tafel: ${g.tafel.id} </li> 
+	</c:forEach>
+</ol>
 
 </body>
 </html>

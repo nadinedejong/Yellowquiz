@@ -34,20 +34,7 @@ public class TableController {
 //		t.getGasten().add(e);
 		return "redirect:index";
 		}
-	
-	@RequestMapping(value="/deleteTafel")
-	public String deleteTafel(long id, HttpServletResponse resp){
-		Tafel t = tafelRepo.findOne(id);
-		if (t==null){
-			resp.setStatus(404);
-			return null; 
-		}
-		tafelRepo.delete(t);	
-		//redirect naar overzicht pagina, nieuwe get request. 
-		return "redirect:index";
-	}
-
-	
+		
 	@RequestMapping(value="/maakGast", method=RequestMethod.POST)
 	public String voegToe(String naam, int leeftijd, boolean vrouw){
 		Gast b = new Gast();
@@ -75,29 +62,50 @@ public class TableController {
 		return "redirect:index";
 	}
 	
+	@RequestMapping(value="/deleteTafel")
+	public String deleteTafel(long id, HttpServletResponse resp){
+		Tafel t = tafelRepo.findOne(id);
+		if (t==null){
+			resp.setStatus(404);
+			return null; 
+		}
+		List<Gast> gasten = t.getGasten();
+		for (Gast g: gasten){
+			g.setTafel(null);
+		}
+		tafelRepo.delete(t);	
+		//redirect naar overzicht pagina, nieuwe get request. 
+		return "redirect:index";
+	}
+	
 	@RequestMapping(value="/plaatsGasten")
 	public String plaatsGasten(){
 		Iterable<Tafel> tafels = tafelRepo.findAllByOrderById();
 		Iterable<Gast> gasten  = gastenRepo.findAllByOrderById();
+		int iterations = 10; 
 		
 		int totaalStoelen=0; 
-		for (Tafel t: tafels){
-			totaalStoelen += t.getStoelen();
-		}
+		for (Tafel t: tafels){totaalStoelen += t.getStoelen();}
 		
-		if (gastenRepo.count() > totaalStoelen){ // er zijn geen genoeg stoelen!! geef een melding.
-		} else {  
-			for (Gast g: gasten){	
-				int stoelNr = 0;
-				for (Tafel t: tafels){
-					// Gast g komt op de volgende stoel te zitten:
-					int randomStoel = (int)(Math.random() * totaalStoelen);
-					//aan welke tafel staat deze stoel? 
-					stoelNr += t.getStoelen();
-					if (randomStoel <= stoelNr) { //gast komt aan deze tafel te zitten als er plek is
-						if (zetGastAanTafel(g, t)) break; //gast is geplaatst, kunnen naar volgende gast
-					}
-				}		
+		if (gastenRepo.count() > totaalStoelen){ // er zijn meer gasten dan stoelen!! geef een melding.
+		} else {  // plaats gasten randomly
+			int max_score = 0;
+			int score = 0;
+			for (int i = 0; i<iterations; i++){
+				for (Gast g: gasten){	
+					int stoelNr = 0;
+					for (Tafel t: tafels){
+						// Gast g komt op de volgende stoel te zitten:
+						int randomStoel = (int)(Math.random() * totaalStoelen);
+						//aan welke tafel staat deze stoel? 
+						stoelNr += t.getStoelen();
+						if (randomStoel <= stoelNr) { //gast komt aan deze tafel te zitten als er plek is
+							if (zetGastAanTafel(g, t)) break; //gast is geplaatst, kunnen naar volgende gast
+						}
+					}		
+				}
+				//update score
+				if (score > max_score){/*bewaar deze tafelschikking*/}
 			}
 		}
 		return "redirect:index";
@@ -112,20 +120,4 @@ public class TableController {
 			return true;
 		}	else {return false;}
 	}	
-	
-	public static int getSizeT(Iterable<Tafel> list){
-		int size = 0;
-		for(Tafel value : list) {
-		   size++;
-		}
-		return size;
-	}
-	
-	public static int getSizeG(Iterable<Gast> list){
-		int size = 0;
-		for(Gast value : list) {
-		   size++;
-		}
-		return size;
-	}
 }

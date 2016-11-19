@@ -5,7 +5,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title>Tafelzetting</title>
+<title>TafelSchikking</title>
 </head>
 <body>
 We hebben de volgende gasten: 
@@ -54,7 +54,6 @@ Voeg een nieuwe tafel toe:
 <a href="plaatsGasten">Plaats de gasten randomly</a>
 <br>
 
-
 Tafellijst gasten
 <ol>
 	<c:forEach items="${gastenlijst}" var="g">
@@ -62,4 +61,6 @@ Tafellijst gasten
 	</c:forEach>
 </ol>
 
+</body>
+</html>
 
