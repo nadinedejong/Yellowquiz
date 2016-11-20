@@ -17,6 +17,13 @@ public class Tafel {
 	private enum Vorm {ROND, VIERKANT, RECHTHOEK} // nog niet gebruikt
 	private List<Gast> gasten = new ArrayList<>();
 	
+	public boolean checkVol(){
+		if (this.getStoelen() == this.getGasten().size()){
+			return true;
+		} else {return false;}
+	}
+
+
 	public Tafel(int stoelen){
 		this.setStoelen(stoelen);
 	}
@@ -54,4 +61,5 @@ public class Tafel {
 			//throw an exception 
 		}
 	}
+	
 }
