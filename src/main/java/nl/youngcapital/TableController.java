@@ -75,47 +75,69 @@ public class TableController {
 	public String plaatsGasten(){
 		Iterable<Tafel> tafels = tafelRepo.findAllByOrderById();
 		Iterable<Gast> gasten  = gastenRepo.findAllByOrderById();
-		int iterations = 5; 
+		int iterations = 1; 
 		
 		int totaalStoelen=0; 
-		for (Tafel t: tafels){totaalStoelen += t.getStoelen();}
+		for (Tafel t: tafels){totaalStoelen += t.getStoelen();} 
 		
 		if (gastenRepo.count() > totaalStoelen){ // er zijn meer gasten dan stoelen!! geef een melding.
 		} else {  // plaats gasten randomly
 			int max_score = 0;
 			int score = 0;
 			for (int i = 0; i<iterations; i++){
-				for (Tafel t: tafels){t.getGasten().clear();}//gastenlijst per tafel leegmaken
+				System.out.println("\n\nITERATIE "+i +"\n\n");
+				for (Tafel t: tafels){t.getGasten().clear();}//gastenlijst per tafel leegmaken aan begin van iteratie
 				for (Gast g: gasten){	
-					int stoelNr = 0;
-					for (Tafel t: tafels){
-						int randomStoel = (int)(Math.random() * totaalStoelen);// zitplaats gast random
-						stoelNr += t.getStoelen(); //aan welke tafel staat deze stoel? 
-						if (randomStoel <= stoelNr) { //gast komt aan deze tafel te zitten als er plek is
-							if (zetGastAanTafel(g, t)) break; //gast is geplaatst if true, kunnen naar volgende gast
-						}
-					}		
+					g.setTafel(null);
+					zoekStoel(g, tafels, totaalStoelen);
 				}
 				//update score, code nog schrijven
 				if (score > max_score){/*bewaar deze tafelschikking*/}
-				System.out.println("Iteratie "+i);  //log
-				for (Tafel t: tafels){//log
-					System.out.println("Tafel ID is " + t.getId() +", gastenlijst:");//log
-					for (int z=0; z<t.getGasten().size(); z++)//log
-						System.out.println("stoelnr: " + z+" naam is: "+ t.getGasten().get(z).getNaam());//log
-				}//log
 			}
 		}
 		return "redirect:index";
 	}	
 	
+	public boolean zoekStoel(Gast g, Iterable<Tafel> tafels, int totaalStoelen){
+		int stoelNr = 0;
+		int randomStoel = ((int)(Math.random() * totaalStoelen))+1;// zitplaats gast random
+		System.out.println("randomstoel is " + randomStoel);
+//		for (int i=1; i<getLength(tafels); i++){
+//			tafels.; 
+//		}
+			
+		for (Tafel t: tafels){		
+			stoelNr += t.getStoelen(); //aan welke tafel staat deze stoel? 
+			System.out.println("stoelNr is " + stoelNr);
+			if (randomStoel <= stoelNr) { //gast komt aan deze tafel te zitten als er plek is
+				if (zetGastAanTafel(g, t)){
+					System.out.println("Gast "+ g.getNaam()+ " geplaatst op " + g.getTafel().getId());
+					return true;
+				}
+			}
+		}
+		return false; 
+	}
+	
 	public boolean zetGastAanTafel(Gast g, Tafel t){
 		if (t.getStoelen() > t.getGasten().size()){
+			System.out.println("er is plek! "); 
 			t.plaatsGast(g);		
 			g.setTafel(t);
 			g = gastenRepo.save(g);
 			t = tafelRepo.save(t);
 			return true;
-		}	else {return false;}
-	}	
+		} else {
+			System.out.println("Er is geen plek! ");
+			return false;
+		}
+	}
+	
+	public int getLength(Iterable<Tafel> tafels){
+		int i = 0;
+		for (Tafel t: tafels){
+			i++;
+		}
+		return i;
+	}
 }

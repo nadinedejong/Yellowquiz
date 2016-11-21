@@ -23,7 +23,6 @@ public class Tafel {
 		} else {return false;}
 	}
 
-
 	public Tafel(int stoelen){
 		this.setStoelen(stoelen);
 	}
