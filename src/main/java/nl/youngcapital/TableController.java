@@ -75,7 +75,7 @@ public class TableController {
 	public String plaatsGasten(){
 		Iterable<Tafel> tafels = tafelRepo.findAllByOrderById();
 		Iterable<Gast> gasten  = gastenRepo.findAllByOrderById();
-		int iterations = 1; 
+		int iterations = 10; 
 		
 		int totaalStoelen=0; 
 		for (Tafel t: tafels){totaalStoelen += t.getStoelen();} 
@@ -87,13 +87,15 @@ public class TableController {
 			for (int i = 0; i<iterations; i++){
 				System.out.println("\n\nITERATIE "+i +"\n\n");
 				for (Tafel t: tafels){t.getGasten().clear();}//gastenlijst per tafel leegmaken aan begin van iteratie
-				for (Gast g: gasten){	
-					g.setTafel(null);
+				for (Gast g: gasten){g.setTafel(null);}//tafelID per gast leegmaken aan begin van iteratie
+				for (Gast g: gasten){				
 					zoekStoel(g, tafels, totaalStoelen);
 				}
-				//update score, code nog schrijven
+				TafelSchikking ts = new TafelSchikking();
+				score = ts.tafelScore(tafels); //update score
+				System.out.println("Score is "+score);
 				if (score > max_score){/*bewaar deze tafelschikking*/}
-			}
+				}
 		}
 		return "redirect:index";
 	}	
@@ -102,17 +104,18 @@ public class TableController {
 		int stoelNr = 0;
 		int randomStoel = ((int)(Math.random() * totaalStoelen))+1;// zitplaats gast random
 		System.out.println("randomstoel is " + randomStoel);
-//		for (int i=1; i<getLength(tafels); i++){
-//			tafels.; 
-//		}
-			
-		for (Tafel t: tafels){		
-			stoelNr += t.getStoelen(); //aan welke tafel staat deze stoel? 
-			System.out.println("stoelNr is " + stoelNr);
-			if (randomStoel <= stoelNr) { //gast komt aan deze tafel te zitten als er plek is
-				if (zetGastAanTafel(g, t)){
-					System.out.println("Gast "+ g.getNaam()+ " geplaatst op " + g.getTafel().getId());
-					return true;
+		boolean gevonden = false; 
+		
+		while (!gevonden){
+			for (Tafel t: tafels){		
+				stoelNr += t.getStoelen(); //aan welke tafel staat deze stoel? 
+				System.out.println("stoelNr is " + stoelNr);
+				if (randomStoel <= stoelNr) { //gast komt aan deze tafel te zitten als er plek is
+					if (zetGastAanTafel(g, t)){
+						System.out.println("Gast "+ g.getNaam()+ " geplaatst op " + g.getTafel().getId());
+						gevonden = true;
+						return true; 
+					} 
 				}
 			}
 		}
@@ -131,13 +134,5 @@ public class TableController {
 			System.out.println("Er is geen plek! ");
 			return false;
 		}
-	}
-	
-	public int getLength(Iterable<Tafel> tafels){
-		int i = 0;
-		for (Tafel t: tafels){
-			i++;
-		}
-		return i;
 	}
 }
