@@ -1,5 +1,6 @@
 package nl.youngcapital;
 
+import java.time.LocalDate;
 import java.util.Iterator;
 import java.util.List;
 
@@ -18,6 +19,9 @@ public class TableController {
 	
 	@Autowired
 	private TafelRepository tafelRepo; 
+	
+	@Autowired
+	private EventRepository eventRepo;
 	
 	@RequestMapping("/index")
 	public String overzicht(Model model){
@@ -40,6 +44,17 @@ public class TableController {
 		b.setLeeftijd(leeftijd);
 		b.setVrouw(vrouw);
 		b = gastenRepo.save(b);
+		return "redirect:index"; 
+	}
+	
+	//Evenement aanmaken
+	@RequestMapping(value="/maakEvent", method=RequestMethod.POST)
+	public String maakEvent(String naam, LocalDate datum, boolean sorteergeslacht){
+		Event e = new Event();
+		e.setNaam(naam);
+		e.setdatum(datum);
+		e.setSorteergeslacht(sorteergeslacht);
+		e = eventRepo.save(e);
 		return "redirect:index"; 
 	}
 	

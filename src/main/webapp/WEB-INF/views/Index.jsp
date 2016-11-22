@@ -23,11 +23,14 @@ De ideale tafelschikking voor het evenement wordt dan berekend.
 
 
 <h3> Het evenement: </h3>
-<form>
+<form method="post" action="/maakEvent">
 
 Naam: &nbsp; <input type = "text" name = "event"> <br>
-Datum: &nbsp;<input type="date" name = "eventDate">  
-<input type="submit">s
+Datum: &nbsp;<input type="date" name = "eventDate"><br>
+Sorteren op geslacht?	<select name="sorteren op geslacht">
+						<option value="false">ja</option>
+						<option value="true">nee</option></select><br>
+						<input type="submit">
 
 </form>
 
