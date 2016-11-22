@@ -122,7 +122,7 @@ Datum: &nbsp;<input type="date" name = "eventDate">
 
 <h3> Klaar met invullen? Klik hieronder voor het controleren van de gegevens</h3>
 
-<strong><h2><a href="definitief"> --> Gegevens controleren</a></strong></h2>
+<strong><h2><a href="gegevens-controleren"> --> Gegevens controleren</a></strong></h2>
 
 
 <br><br><br>
