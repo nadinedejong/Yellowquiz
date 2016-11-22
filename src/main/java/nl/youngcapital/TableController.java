@@ -46,6 +46,8 @@ public class TableController {
 	//gaat naar de tweede pagina waar de gegevens worden gecontroleerd, Nadine aangepast
 	@RequestMapping(value="/gegevens-controleren")
 	public String overzicht2(Model model){
+		model.addAttribute("gastenlijst", gastenRepo.findAll());
+		model.addAttribute("tafels", tafelRepo.findAll());
 		return "Definitief";
 	}
 	
