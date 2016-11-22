@@ -27,12 +27,11 @@ De ideale tafelschikking voor het evenement wordt dan berekend.
 
 Naam: &nbsp; <input type = "text" name = "event"> <br>
 Datum: &nbsp;<input type="date" name = "eventDate">  
-
-<br><br><br>
-
+<input type="submit">s
 
 </form>
 
+<br><br><br>
 
 <!-- Hier begint het formulier om de gasten toe te voegen, met tabel erin -->
 
@@ -119,12 +118,14 @@ Datum: &nbsp;<input type="date" name = "eventDate">
 
 <br><br><br>
 
-<form>
+<!-- Hieronder de link om naar de pagina te gaan om gegevens te controleren -->
 
-<input type="submit">
+<h3> Klaar met invullen? Klik hieronder voor het controleren van de gegevens</h3>
 
-</form>
+<strong><h2><a href="definitief"> --> Gegevens controleren</a></strong></h2>
 
+
+<br><br><br>
 
 <a href="plaatsGasten">Plaats de gasten randomly</a>
 <br>

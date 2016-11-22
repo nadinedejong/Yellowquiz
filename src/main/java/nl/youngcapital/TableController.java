@@ -43,6 +43,11 @@ public class TableController {
 		return "redirect:index"; 
 	}
 	
+	@RequestMapping(value="/definitief")
+	public String overzicht2(Model model){
+		return "Definitief";
+	}
+	
 	@RequestMapping(value="/deleteGast")
 	public String deleteGast(long id, HttpServletResponse resp){
 		Gast b = gastenRepo.findOne(id);
