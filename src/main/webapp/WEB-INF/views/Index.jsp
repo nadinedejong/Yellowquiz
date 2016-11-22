@@ -12,6 +12,27 @@
 <body>
 <!-- Hier is het beginformulier -->
 
+<h1>Jouw evenement</h1>
+
+<p> Vul hieronder de gegevens in van jouw evenement, voeg de gasten toe en de tafels. Als alles klopt, klik je onderaan op de verzendknop.
+De ideale tafelschikking voor het evenement wordt dan berekend.
+</p>
+
+
+<br><br><br>
+
+
+<h3> Het evenement: </h3>
+<form>
+
+Naam: &nbsp; <input type = "text" name = "event"> <br>
+Datum: &nbsp;<input type="date" name = "eventDate">  
+
+<br><br><br>
+
+
+</form>
+
 
 <!-- Hier begint het formulier om de gasten toe te voegen, met tabel erin -->
 
@@ -28,7 +49,6 @@
 			<th>Actie</th>
 		</tr>
 
-<br><br><br>
 		<!--  Rij 2 t/m... (dus de ingevoerde gasten) -->
 	<c:forEach items="${gastenlijst}" var="b" varStatus="status">
 		<tr><td>Gast ${status.count}</td>
@@ -58,7 +78,7 @@
 
 <!-- Hier begint het formulier om de tafels toe te voegen met tabel erin -->
 
-<h3>Ingevoerde tafels: </h3>
+<h3>De tafels: </h3>
 
 <form method="post" action="/maakTafel">
 
@@ -76,7 +96,7 @@
 	<c:forEach items="${tafels}" var="t" varStatus="aant">
 		<tr><td>Tafel ${aant.count}</td>
 			<td>${t.stoelen}</td>
-			<td>rond of niet</td>
+			<td>rond</td>
 			<td><a href="deleteTafel?id=${t.id}">verwijder</a></td>
 		</tr>
 	</c:forEach>
@@ -96,7 +116,16 @@
 </table>
 
 </form>
+
 <br><br><br>
+
+<form>
+
+<input type="submit">
+
+</form>
+
+
 <a href="plaatsGasten">Plaats de gasten randomly</a>
 <br>
 
