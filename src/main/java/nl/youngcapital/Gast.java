@@ -13,7 +13,15 @@ public class Gast {
 	private boolean vrouw;
 	private long id; 
 	private Tafel tafel;
+	private Event event;
 	
+	@ManyToOne()
+	public Event getEvent() {
+		return event;
+	}
+	public void setEvent(Event event) {
+		this.event = event;
+	}
 	@ManyToOne()
 	public Tafel getTafel() {
 		return tafel;

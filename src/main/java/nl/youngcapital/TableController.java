@@ -49,10 +49,11 @@ public class TableController {
 	
 	//Evenement aanmaken
 	@RequestMapping(value="/maakEvent", method=RequestMethod.POST)
-	public String maakEvent(String naam, LocalDate datum, boolean sorteergeslacht){
+	public String maakEvent(String naam, String datum, boolean sorteergeslacht){
 		Event e = new Event();
 		e.setNaam(naam);
-		e.setdatum(datum);
+		LocalDate parsedDate = LocalDate.parse(datum);
+		e.setDatum(parsedDate);
 		e.setSorteergeslacht(sorteergeslacht);
 		e = eventRepo.save(e);
 		return "redirect:index"; 
