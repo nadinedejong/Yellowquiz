@@ -13,7 +13,14 @@ public class Gast {
 	private boolean vrouw;
 	private long id; 
 	private Tafel tafel;
+	private int stoelNr;
 	
+	public int getStoelNr() {
+		return stoelNr;
+	}
+	public void setStoelNr(int stoelNr) {
+		this.stoelNr = stoelNr;
+	}
 	@ManyToOne()
 	public Tafel getTafel() {
 		return tafel;

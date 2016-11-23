@@ -69,6 +69,7 @@
 			<th>Tafelnummer</th>
 			<th>Aantal stoelen</th>
 			<th>Vorm</th>
+			<th>TafelID</th>
 			<th>Actie</th>
 		</tr>
 
@@ -77,6 +78,7 @@
 		<tr><td>Tafel ${aant.count}</td>
 			<td>${t.stoelen}</td>
 			<td>rond of niet</td>
+			<td>${t.id}</td>
 			<td><a href="deleteTafel?id=${t.id}">verwijder</a></td>
 		</tr>
 	</c:forEach>
