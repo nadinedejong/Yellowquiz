@@ -1,5 +1,8 @@
 package nl.youngcapital;
 
+
+import java.time.LocalDate;
+import java.util.Iterator;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -21,8 +24,13 @@ public class TableController {
 	@Autowired
 	private TafelRepository tafelRepo; 
 	
+	@Autowired
+	private EventRepository eventRepo;
+	
 	@RequestMapping("/index")
 	public String overzicht(Model model){
+
+		model.addAttribute("events", eventRepo.findAll());
 		model.addAttribute("gastenlijst", gastenRepo.findAllByOrderById());
 		model.addAttribute("tafels", tafelRepo.findAllByOrderById()); 
 		return "Index";
@@ -45,9 +53,31 @@ public class TableController {
 		return "redirect:index"; 
 	}
 	
-	@RequestMapping(value="/definitief")
+	//Evenement aanmaken
+	@RequestMapping(value="/maakEvent", method=RequestMethod.POST)
+	public String maakEvent(Model model, String naam, String datum, boolean sorteergeslacht){
+		Event e = new Event();
+		e.setNaam(naam);
+		LocalDate parsedDate = LocalDate.parse(datum);
+		e.setDatum(parsedDate);
+		e.setSorteergeslacht(sorteergeslacht);
+		model.addAttribute("events", eventRepo.findAll());
+		e = eventRepo.save(e);
+		return "redirect:index"; 
+	}
+	
+	//gaat naar de tweede pagina waar de gegevens worden gecontroleerd, Nadine aangepast
+	@RequestMapping(value="/gegevens-controleren")
 	public String overzicht2(Model model){
+		model.addAttribute("gastenlijst", gastenRepo.findAll());
+		model.addAttribute("tafels", tafelRepo.findAll());
 		return "Definitief";
+	}
+	
+	//gaat naar de laatste pagina met de tafelschikking, Nadine aangepast
+	@RequestMapping(value="/tafelschikking")
+	public String overzicht3(Model model){
+		return "Schikking";
 	}
 	
 	@RequestMapping(value="/deleteGast")

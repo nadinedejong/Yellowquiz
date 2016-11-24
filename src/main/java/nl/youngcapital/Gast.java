@@ -11,8 +11,8 @@ public class Gast {
 	private String naam; 
 	private long id; 
 	private Tafel tafel;
-	private int stoelNr;
-	
+	private Event event;
+	private int stoelNr;	
 	private int leeftijd; 
 	private boolean vrouw;		
 	private enum Interesse {VOETBAL, LEGO, GTST, SPREEKWOORDEN, HETWEER};
@@ -23,6 +23,13 @@ public class Gast {
 	}
 	public void setStoelNr(int stoelNr) {
 		this.stoelNr = stoelNr;
+	}
+	@ManyToOne()
+	public Event getEvent() {
+		return event;
+	}
+	public void setEvent(Event event) {
+		this.event = event;
 	}
 	@ManyToOne()
 	public Tafel getTafel() {
