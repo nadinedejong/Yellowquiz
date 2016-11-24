@@ -119,9 +119,11 @@ public class TableController {
 		Gast[] gastOpStoel = new Gast[totaalStoelen];
 		TafelSchikking ts = new TafelSchikking(totaalStoelen);
 		ts.setGastOpStoelMax(gastOpStoel);
+		VoorkeurenLijst voorkeuren = maakVoorkeurenLijst();
+		zetVoorkeuren(voorkeuren);
 		
 		int max_score = -10000;
-		int iterations = 25; 
+		int iterations = 1; 
 		
 		if (gastenRepo.count() > totaalStoelen){ // er zijn meer gasten dan stoelen!! geef een melding.
 		} else {  // plaats gasten RANDOMLY
@@ -135,7 +137,7 @@ public class TableController {
 				Collections.shuffle(Arrays.asList(gastOpStoel)); //genereer randomlijst met lengte aantal stoelen waar gasten op geplaatst worde					
 				zetGastenAanTafels(gastOpStoel, tafels); //gasten worden random aan de tafels gezet
 				int score = 0;
-				score = ts.calcScore(tafels);
+				score = ts.calcScore(tafels, voorkeuren);
 				if (score > max_score){
 					max_score = score;
 					ts.setGastOpStoelMax(gastOpStoel); //configuratie met hoogste score wordt opgeslagen in Tafelschikking klasse
@@ -148,6 +150,12 @@ public class TableController {
 			}
 		}
 		return "redirect:index";
+	}
+	
+	public VoorkeurenLijst maakVoorkeurenLijst(){
+		VoorkeurenLijst voorkeuren = new VoorkeurenLijst();
+			// lees alle voorkeuren in en set ze in de klasse !! 
+		return voorkeuren;
 	}
 	
 	public void clearIt(Iterable<Tafel> tafels, Iterable<Gast> gasten, Gast[] gastOpStoel){
@@ -184,5 +192,12 @@ public class TableController {
 		} else {
 			return false;
 		}
+	}
+	
+	public void zetVoorkeuren(VoorkeurenLijst voorkeuren){
+		voorkeuren.setManVrouw(5, false);
+		voorkeuren.setInteresse(0, true);
+		voorkeuren.setRelatie(0, true);
+		voorkeuren.setOpLeeftijd(0, true);
 	}
 }
