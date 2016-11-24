@@ -1,7 +1,11 @@
 package nl.youngcapital;
 
+
 import java.time.LocalDate;
 import java.util.Iterator;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -25,9 +29,10 @@ public class TableController {
 	
 	@RequestMapping("/index")
 	public String overzicht(Model model){
-		model.addAttribute("gastenlijst", gastenRepo.findAll());
-		model.addAttribute("tafels", tafelRepo.findAll());
+
 		model.addAttribute("events", eventRepo.findAll());
+		model.addAttribute("gastenlijst", gastenRepo.findAllByOrderById());
+		model.addAttribute("tafels", tafelRepo.findAllByOrderById()); 
 		return "Index";
 	}
 	
@@ -105,65 +110,78 @@ public class TableController {
 	
 	@RequestMapping(value="/plaatsGasten")
 	public String plaatsGasten(){
-		Iterable<Tafel> tafels = tafelRepo.findAllByOrderById();
-		Iterable<Gast> gasten  = gastenRepo.findAllByOrderById();
-		int iterations = 10; 
-		
+		//maak lijst tafels en gasten 
+		Iterable<Tafel> tafels = tafelRepo.findAll();
+		Iterable<Gast> gasten  = gastenRepo.findAll();
+	
 		int totaalStoelen=0; 
-		for (Tafel t: tafels){totaalStoelen += t.getStoelen();} 
+		for (Tafel t: tafels){totaalStoelen += t.getStoelen();} //totaal aantal stoelen berekenen
+		Gast[] gastOpStoel = new Gast[totaalStoelen];
+		TafelSchikking ts = new TafelSchikking(totaalStoelen);
+		ts.setGastOpStoelMax(gastOpStoel);
+		
+		int max_score = -10000;
+		int iterations = 25; 
 		
 		if (gastenRepo.count() > totaalStoelen){ // er zijn meer gasten dan stoelen!! geef een melding.
-		} else {  // plaats gasten randomly
-			int max_score = 0;
-			int score = 0;
-			for (int i = 0; i<iterations; i++){
-				System.out.println("\n\nITERATIE "+i +"\n\n");
-				for (Tafel t: tafels){t.getGasten().clear();}//gastenlijst per tafel leegmaken aan begin van iteratie
-				for (Gast g: gasten){g.setTafel(null);}//tafelID per gast leegmaken aan begin van iteratie
-				for (Gast g: gasten){				
-					zoekStoel(g, tafels, totaalStoelen);
-				}
-				TafelSchikking ts = new TafelSchikking();
-				score = ts.tafelScore(tafels); //update score
-				System.out.println("Score is "+score);
-				if (score > max_score){/*bewaar deze tafelschikking*/}
-				}
-		}
-		return "redirect:index";
-	}	
-	
-	public boolean zoekStoel(Gast g, Iterable<Tafel> tafels, int totaalStoelen){
-		int stoelNr = 0;
-		int randomStoel = ((int)(Math.random() * totaalStoelen))+1;// zitplaats gast random
-		System.out.println("randomstoel is " + randomStoel);
-		boolean gevonden = false; 
-		
-		while (!gevonden){
-			for (Tafel t: tafels){		
-				stoelNr += t.getStoelen(); //aan welke tafel staat deze stoel? 
-				System.out.println("stoelNr is " + stoelNr);
-				if (randomStoel <= stoelNr) { //gast komt aan deze tafel te zitten als er plek is
-					if (zetGastAanTafel(g, t)){
-						System.out.println("Gast "+ g.getNaam()+ " geplaatst op " + g.getTafel().getId());
-						gevonden = true;
-						return true; 
-					} 
+		} else {  // plaats gasten RANDOMLY
+			for (int l = 0; l<iterations; l++){
+				System.out.println("ITERATIE "+l);		
+				clearIt(tafels, gasten, gastOpStoel);				
+				int k = 0;	
+				for (Gast g: gasten){
+					gastOpStoel[k++]= g;
+				}				
+				Collections.shuffle(Arrays.asList(gastOpStoel)); //genereer randomlijst met lengte aantal stoelen waar gasten op geplaatst worde					
+				zetGastenAanTafels(gastOpStoel, tafels); //gasten worden random aan de tafels gezet
+				int score = 0;
+				score = ts.calcScore(tafels);
+				if (score > max_score){
+					max_score = score;
+					ts.setGastOpStoelMax(gastOpStoel); //configuratie met hoogste score wordt opgeslagen in Tafelschikking klasse
 				}
 			}
+			clearIt(tafels, gasten, gastOpStoel);
+			zetGastenAanTafels(ts.getGastOpStoelMax(), tafels); // configuratie met hoogste score wordt aan tafels gezet.
+			for (int i=0; i<ts.getGastOpStoelMax().length;i++){
+				if (ts.getGastOpStoelMax()[i] != null){System.out.println(ts.getGastOpStoelMax()[i].isVrouw());}
+			}
 		}
-		return false; 
+		return "redirect:index";
+	}
+	
+	public void clearIt(Iterable<Tafel> tafels, Iterable<Gast> gasten, Gast[] gastOpStoel){
+		for (Tafel t: tafels){
+			t.getGasten().clear();
+		} 
+		for (Gast g: gasten){
+			g.setTafel(null);
+		}
+		for (int i = 0; i<gastOpStoel.length; i++){
+			gastOpStoel[i] = null; 
+		}
+	}
+
+	public void zetGastenAanTafels(Gast[] gastOpStoel, Iterable<Tafel> tafels){
+		int i=0;
+		for (Tafel t: tafels){ // zet de lijst met gasten aan de tafels
+			for(int j=0; j<t.getStoelen(); j++, i++){
+				if (gastOpStoel[i] != null){
+					if (!zetGastAanTafel(gastOpStoel[i], t)){ };//throw error 
+					gastOpStoel[i].setStoelNr(j);
+				} 
+			}
+		}
 	}
 	
 	public boolean zetGastAanTafel(Gast g, Tafel t){
-		if (t.getStoelen() > t.getGasten().size()){
-			System.out.println("er is plek! "); 
+		if (t.getStoelen() > t.getGasten().size()){ 
 			t.plaatsGast(g);		
 			g.setTafel(t);
 			g = gastenRepo.save(g);
 			t = tafelRepo.save(t);
 			return true;
 		} else {
-			System.out.println("Er is geen plek! ");
 			return false;
 		}
 	}

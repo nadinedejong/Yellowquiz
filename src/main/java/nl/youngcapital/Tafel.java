@@ -7,8 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 
 @Entity
 public class Tafel {
@@ -30,6 +30,7 @@ public class Tafel {
 	public Tafel(){} // Waarom is deze nodig ???
 	
 	@OneToMany(mappedBy = "tafel")
+	@OrderBy("stoelNr")
 	public List<Gast> getGasten() {
 		return gasten;
 	}

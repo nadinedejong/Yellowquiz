@@ -93,6 +93,7 @@ Sorteren op geslacht?	<select name="sorteergeslacht">
 			<th>Tafelnummer</th>
 			<th>Aantal stoelen</th>
 			<th>Vorm</th>
+			<th>TafelID</th>
 			<th>Actie</th>
 		</tr>
 
@@ -101,6 +102,7 @@ Sorteren op geslacht?	<select name="sorteergeslacht">
 		<tr><td>Tafel ${aant.count}</td>
 			<td>${t.stoelen}</td>
 			<td>rond</td>
+			<td>${t.id}</td>
 			<td><a href="deleteTafel?id=${t.id}">verwijder</a></td>
 		</tr>
 	</c:forEach>
@@ -155,7 +157,7 @@ Gastenlijst Per Tafel
 		<li> Tafel ID: ${t.id}, Aantal stoelen: ${t.stoelen} <br> 
 			Gasten:
 			<c:forEach items="${t.gasten}" var="g">     
-				${g.naam},
+				${g.naam}, ${g.leeftijd }, ${g.vrouw };
 			</c:forEach>
 		</li> 
 	</c:forEach>
