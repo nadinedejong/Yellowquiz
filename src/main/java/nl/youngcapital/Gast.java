@@ -19,14 +19,14 @@ public class Gast {
 	private int relatie; 
 	private int interesse; 
 	
-	public static final int FAM = 1;
-	public static final int VR = 2;
-	public static final int COL = 3;
+	public static final int FAM = 0;
+	public static final int VR = 1;
+	public static final int COL = 2;
 	
-	public static final int VOETBAL = 1;
-	public static final int LEGO = 2;
-	public static final int GTST = 3;
-	public static final int SPREEKWOORDEN = 4;
+	public static final int VOETBAL = 0;
+	public static final int LEGO = 1;
+	public static final int GTST = 2;
+	public static final int SPREEKWOORDEN = 3;
 		
 	public int getRelatie() {
 		return relatie;

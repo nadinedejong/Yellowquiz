@@ -44,11 +44,13 @@ public class TableController {
 		}
 		
 	@RequestMapping(value="/maakGast", method=RequestMethod.POST)
-	public String voegToe(String naam, int leeftijd, boolean vrouw){
+	public String voegToe(String naam, int leeftijd, boolean vrouw, int interesse, int relatie){
 		Gast b = new Gast();
 		b.setNaam(naam);
 		b.setLeeftijd(leeftijd);
 		b.setVrouw(vrouw);
+		b.setInteresse(interesse);
+		b.setRelatie(relatie);
 		b = gastenRepo.save(b);
 		return "redirect:index"; 
 	}
