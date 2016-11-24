@@ -6,6 +6,8 @@
 <html>
 <head>
 <title>TafelSchikking</title>
+
+
 </head>
 
 
@@ -19,14 +21,14 @@ De ideale tafelschikking voor het evenement wordt dan berekend.
 </p>
 
 
-<br><br><br>
+<br><br>
 
 
 <h3> Het evenement: </h3>
 <form method="post" action="/maakEvent">
 
-Naam: &nbsp; <input type = "text" name = "naam"> <br>
-Datum: &nbsp;<input type="date" name = "datum"><br>
+Naam: &nbsp; <input type = "text" name ="naam" value="${e.naam}"> <br>
+Datum: &nbsp;<input type="date" name ="datum"><br>
 Sorteren op geslacht?	<select name="sorteergeslacht">
 						<option value="false">ja</option>
 						<option value="true">nee</option></select><br>
@@ -34,7 +36,7 @@ Sorteren op geslacht?	<select name="sorteergeslacht">
 
 </form>
 
-<br><br><br>
+<br><br>
 
 <!-- Hier begint het formulier om de gasten toe te voegen, met tabel erin -->
 
@@ -64,18 +66,18 @@ Sorteren op geslacht?	<select name="sorteergeslacht">
 		<!--  Laatste rij (nieuwe gast toevoegen) -->
 		<tr>
 			<td>Nieuwe gast</td>
-			<td><input type = "text" name="naam"></td>
-			<td><input type = "text" name="leeftijd">
+			<td><input type = "text" name="naam" placeholder='Vul naam in ...'></td>
+			<td><input type = "text" name= "leeftijd" placeholder='Vul leeftijd in ...'>
 			<td><select name="vrouw">
 				<option value="false">man</option>
 				<option value="true">vrouw</option></select></td>
-			<td><input type="submit"></td>
+			<td><input type="submit" value='Toevoegen'></td>
 		</tr>
 </table>
 
 </form>
 
-<br><br><br>
+<br><br>
 
 
 <!-- Hier begint het formulier om de tafels toe te voegen met tabel erin -->
@@ -106,20 +108,20 @@ Sorteren op geslacht?	<select name="sorteergeslacht">
 		<!--  Laatste rij (nieuwe tafel toevoegen) -->
 		<tr>
 			<td>Nieuwe tafel</td>
-			<td><input type = "text" name="stoelen"></td>
+			<td><input type = "text" name="stoelen" placeholder='Vul aantal stoelen in ...'></td>
 			<td><select name="Vorm">
 					<option value="Vorm.ROND">rond</option>
 					<option value="Vorm.VIERKANT">vierkant</option>
 					<option value="Vorm.RECHTHOEK">rechthoek</option>
 				</select></td>
-			<td><input type="submit"></td>
+			<td><input type="submit" value='Toevoegen'></td>
 		</tr>
 		
 </table>
 
 </form>
 
-<br><br><br>
+<br><br>
 
 <!-- Hieronder de link om naar de pagina te gaan om gegevens te controleren -->
 

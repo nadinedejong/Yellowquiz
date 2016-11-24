@@ -27,6 +27,7 @@ public class TableController {
 	public String overzicht(Model model){
 		model.addAttribute("gastenlijst", gastenRepo.findAll());
 		model.addAttribute("tafels", tafelRepo.findAll());
+		model.addAttribute("events", eventRepo.findAll());
 		return "Index";
 	}
 	
@@ -49,12 +50,13 @@ public class TableController {
 	
 	//Evenement aanmaken
 	@RequestMapping(value="/maakEvent", method=RequestMethod.POST)
-	public String maakEvent(String naam, String datum, boolean sorteergeslacht){
+	public String maakEvent(Model model, String naam, String datum, boolean sorteergeslacht){
 		Event e = new Event();
 		e.setNaam(naam);
 		LocalDate parsedDate = LocalDate.parse(datum);
 		e.setDatum(parsedDate);
 		e.setSorteergeslacht(sorteergeslacht);
+		model.addAttribute("events", eventRepo.findAll());
 		e = eventRepo.save(e);
 		return "redirect:index"; 
 	}
