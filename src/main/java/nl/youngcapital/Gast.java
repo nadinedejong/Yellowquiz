@@ -9,12 +9,15 @@ import javax.persistence.ManyToOne;
 @Entity
 public class Gast {
 	private String naam; 
-	private int leeftijd; 
-	private boolean vrouw;
 	private long id; 
 	private Tafel tafel;
 	private int stoelNr;
 	
+	private int leeftijd; 
+	private boolean vrouw;		
+	private enum Interesse {VOETBAL, LEGO, GTST, SPREEKWOORDEN, HETWEER};
+	private enum Relatie {FAMILIE, VRIENDEN, COLLEGAS} 
+		
 	public int getStoelNr() {
 		return stoelNr;
 	}

@@ -86,39 +86,28 @@ public class TableController {
 		ts.setGastOpStoelMax(gastOpStoel);
 		
 		int max_score = -10000;
-		int iterations = 100; 
+		int iterations = 25; 
 		
 		if (gastenRepo.count() > totaalStoelen){ // er zijn meer gasten dan stoelen!! geef een melding.
 		} else {  // plaats gasten RANDOMLY
 			for (int l = 0; l<iterations; l++){
 				System.out.println("ITERATIE "+l);		
-				clearIt(tafels, gasten, gastOpStoel);
-				
+				clearIt(tafels, gasten, gastOpStoel);				
 				int k = 0;	
 				for (Gast g: gasten){
 					gastOpStoel[k++]= g;
-				}
-				
-
+				}				
 				Collections.shuffle(Arrays.asList(gastOpStoel)); //genereer randomlijst met lengte aantal stoelen waar gasten op geplaatst worde					
 				zetGastenAanTafels(gastOpStoel, tafels); //gasten worden random aan de tafels gezet
-
 				int score = 0;
 				score = ts.calcScore(tafels);
-				System.out.println("Score is "+score);
 				if (score > max_score){
 					max_score = score;
 					ts.setGastOpStoelMax(gastOpStoel); //configuratie met hoogste score wordt opgeslagen in Tafelschikking klasse
-					System.out.println("Print ts.gastopstoelmax array met hoogste score");
-					for (int i=0; i<ts.getGastOpStoelMax().length;i++){
-						System.out.println(ts.getGastOpStoelMax()[i].isVrouw());
-					}
 				}
 			}
 			clearIt(tafels, gasten, gastOpStoel);
 			zetGastenAanTafels(ts.getGastOpStoelMax(), tafels); // configuratie met hoogste score wordt aan tafels gezet.
-			ts.setMaxScore(max_score); //onnodig?
-			System.out.println("max score is "+ max_score+ ", en dit is configuratie met hoogste score uiteindelijk;");
 			for (int i=0; i<ts.getGastOpStoelMax().length;i++){
 				if (ts.getGastOpStoelMax()[i] != null){System.out.println(ts.getGastOpStoelMax()[i].isVrouw());}
 			}
@@ -137,18 +126,8 @@ public class TableController {
 			gastOpStoel[i] = null; 
 		}
 	}
-	
-	public void clearIt(Iterable<Tafel> tafels, Iterable<Gast> gasten){
-		for (Tafel t: tafels){
-			t.getGasten().clear();
-		} 
-		for (Gast g: gasten){
-			g.setTafel(null);
-		}
-	}
-	
+
 	public void zetGastenAanTafels(Gast[] gastOpStoel, Iterable<Tafel> tafels){
-		System.out.println("lengte gastOpStoel array is "+ gastOpStoel.length);
 		int i=0;
 		for (Tafel t: tafels){ // zet de lijst met gasten aan de tafels
 			for(int j=0; j<t.getStoelen(); j++, i++){
