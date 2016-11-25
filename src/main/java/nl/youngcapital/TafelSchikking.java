@@ -43,26 +43,20 @@ public class TafelSchikking {
 		for (Tafel t: tafels){
 			List<Gast> gasten = t.getGasten();
 			while (i<(gasten.size()-1)){
-				if (gasten.get(i) != null && gasten.get(i+1) != null){
-					score += gemengdManVrouw(gasten.get(i), gasten.get(i+1), voorkeuren);
-					score += opLeeftijd(gasten.get(i), gasten.get(i+1), voorkeuren);
-					score += opInteresse(gasten.get(i), gasten.get(i+1), voorkeuren);
-					score += opRelatie(gasten.get(i), gasten.get(i+1), voorkeuren);
-				}
+				score += gemengdManVrouw(gasten.get(i), gasten.get(i+1), voorkeuren);
+				score += opLeeftijd(gasten.get(i), gasten.get(i+1), voorkeuren);
+				score += opInteresse(gasten.get(i), gasten.get(i+1), voorkeuren);
+				score += opRelatie(gasten.get(i), gasten.get(i+1), voorkeuren);
 				i++;
 			}
-			try {
-				if (t.getStoelen() > 2 && gasten.get(0) != null && gasten.get(i) != null){ 
-					/*laatste plek wordt met eerste vergeleken als alle stoelen bezet zijn en er meer dan 2 stoelen zijn*/ 
-					score += gemengdManVrouw(gasten.get(0), gasten.get(i), voorkeuren);
-					score += opLeeftijd(gasten.get(0), gasten.get(i), voorkeuren);
-					score += opInteresse(gasten.get(0), gasten.get(i), voorkeuren);
-					score += opRelatie(gasten.get(0), gasten.get(i), voorkeuren);
-				}
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}			
+			if (t.getStoelen() > 2 && t.checkVol()){ 
+				/*laatste plek wordt met eerste vergeleken als alle stoelen bezet zijn en er meer dan 2 stoelen zijn*/ 
+				score += gemengdManVrouw(gasten.get(0), gasten.get(i), voorkeuren);
+				score += opLeeftijd(gasten.get(0), gasten.get(i), voorkeuren);
+				score += opInteresse(gasten.get(0), gasten.get(i), voorkeuren);
+				score += opRelatie(gasten.get(0), gasten.get(i), voorkeuren);
+			}
+			
 		}
 		return score; 
 	}	

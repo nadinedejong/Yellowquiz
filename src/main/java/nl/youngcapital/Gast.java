@@ -13,7 +13,8 @@ public class Gast {
 	private Tafel tafel;
 	private Event event;
 	private int stoelNr;
-	
+	private boolean empty; 
+
 	private int leeftijd; 
 	private boolean vrouw;	
 	private int relatie; 
@@ -27,7 +28,17 @@ public class Gast {
 	public static final int LEGO = 1;
 	public static final int GTST = 2;
 	public static final int SPREEKWOORDEN = 3;
-		
+	
+	public Gast(boolean empty){
+		this.empty = empty; 
+	}
+	
+	public boolean isEmpty() {
+		return empty;
+	}
+	public void setEmpty(boolean empty) {
+		this.empty = empty;
+	}
 	public int getRelatie() {
 		return relatie;
 	}

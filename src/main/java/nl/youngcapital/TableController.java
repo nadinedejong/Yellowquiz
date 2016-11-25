@@ -90,7 +90,6 @@ public class TableController {
 			return null; 
 		}
 		gastenRepo.delete(b);	
-		//redirect naar overzicht pagina, nieuwe get request. 
 		return "redirect:index";
 	}
 	
@@ -148,7 +147,7 @@ public class TableController {
 				
 				zetGastenAanTafels(gastOpStoel, tafels); //gasten worden random aan de tafels gezet
 				int score = 0;
-//				score = ts.calcScore(tafels, voorkeuren);
+				score = ts.calcScore(tafels, voorkeuren);
 				if (score > max_score){
 					max_score = score;
 					ts.setGastOpStoelMax(gastOpStoel); //configuratie met hoogste score wordt opgeslagen in Tafelschikking klasse
@@ -184,7 +183,7 @@ public class TableController {
 			g.setTafel(null);
 		}
 		for (int i = 0; i<gastOpStoel.length; i++){
-			gastOpStoel[i] = null; 
+			gastOpStoel[i] = null; // empty is true
 		}
 	}
 
