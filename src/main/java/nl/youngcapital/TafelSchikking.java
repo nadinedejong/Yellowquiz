@@ -48,15 +48,20 @@ public class TafelSchikking {
 					score += opLeeftijd(gasten.get(i), gasten.get(i+1), voorkeuren);
 					score += opInteresse(gasten.get(i), gasten.get(i+1), voorkeuren);
 					score += opRelatie(gasten.get(i), gasten.get(i+1), voorkeuren);
-					i++;
 				}
+				i++;
 			}
-			if (t.getStoelen() > 2 && gasten.get(0) != null && gasten.get(i) !=null){ 
-				/*laatste plek wordt met eerste vergeleken als alle stoelen bezet zijn en er meer dan 2 stoelen zijn*/ 
-				score += gemengdManVrouw(gasten.get(0), gasten.get(i), voorkeuren);
-				score += opLeeftijd(gasten.get(0), gasten.get(i), voorkeuren);
-				score += opInteresse(gasten.get(0), gasten.get(i), voorkeuren);
-				score += opRelatie(gasten.get(0), gasten.get(i), voorkeuren);
+			try {
+				if (t.getStoelen() > 2 && gasten.get(0) != null && gasten.get(i) != null){ 
+					/*laatste plek wordt met eerste vergeleken als alle stoelen bezet zijn en er meer dan 2 stoelen zijn*/ 
+					score += gemengdManVrouw(gasten.get(0), gasten.get(i), voorkeuren);
+					score += opLeeftijd(gasten.get(0), gasten.get(i), voorkeuren);
+					score += opInteresse(gasten.get(0), gasten.get(i), voorkeuren);
+					score += opRelatie(gasten.get(0), gasten.get(i), voorkeuren);
+				}
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}			
 		}
 		return score; 
@@ -77,13 +82,14 @@ public class TafelSchikking {
 	public int opLeeftijd(Gast g1, Gast g2, VoorkeurenLijst voorkeuren){
 		int score = 0; 
 		
-		if (Math.abs(g1.getLeeftijd()-g2.getLeeftijd()) / Math.max(g1.getLeeftijd(), g2.getLeeftijd()) < 0.23){
+		System.out.println("berekening is "+((double)Math.abs(g1.getLeeftijd()-g2.getLeeftijd()) / Math.max(g1.getLeeftijd(), g2.getLeeftijd())));
+		if (((double)Math.abs(g1.getLeeftijd()-g2.getLeeftijd()) / Math.max(g1.getLeeftijd(), g2.getLeeftijd())) < 0.30){
 			score -=1;
 		} else {
 			score +=1;
-		}
-		
+		}		
 		if (voorkeuren.isOpLeeftijd()) {score *=-1 ;} //true is hogere score bij gelijkere leeftijd		
+		System.out.println("totalscore opLeeftijd is "+score);
 		return voorkeuren.getFactOpLeeftijd()*score; 		
 	}
 	

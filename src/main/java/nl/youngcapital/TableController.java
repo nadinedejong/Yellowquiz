@@ -2,13 +2,12 @@ package nl.youngcapital;
 
 
 import java.time.LocalDate;
-import java.util.Iterator;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,7 +28,6 @@ public class TableController {
 	
 	@RequestMapping("/index")
 	public String overzicht(Model model){
-
 		model.addAttribute("events", eventRepo.findAll());
 		model.addAttribute("gastenlijst", gastenRepo.findAllByOrderById());
 		model.addAttribute("tafels", tafelRepo.findAllByOrderById()); 
@@ -71,14 +69,16 @@ public class TableController {
 	//gaat naar de tweede pagina waar de gegevens worden gecontroleerd, Nadine aangepast
 	@RequestMapping(value="/gegevens-controleren")
 	public String overzicht2(Model model){
-		model.addAttribute("gastenlijst", gastenRepo.findAll());
-		model.addAttribute("tafels", tafelRepo.findAll());
+		model.addAttribute("gastenlijst", gastenRepo.findAllByOrderById());
+		model.addAttribute("tafels", tafelRepo.findAllByOrderById());
 		return "Definitief";
 	}
 	
 	//gaat naar de laatste pagina met de tafelschikking, Nadine aangepast
 	@RequestMapping(value="/tafelschikking")
 	public String overzicht3(Model model){
+		model.addAttribute("gastenlijst", gastenRepo.findAllByOrderById());
+		model.addAttribute("tafels", tafelRepo.findAllByOrderById());
 		return "Schikking";
 	}
 	
@@ -111,7 +111,9 @@ public class TableController {
 	}
 	
 	@RequestMapping(value="/plaatsGasten")
-	public String plaatsGasten(){
+	public String plaatsGasten(Model model, HttpSession session){
+		model.addAttribute("gastenlijst", gastenRepo.findAllByOrderById());
+		model.addAttribute("tafels", tafelRepo.findAllByOrderById());
 		//maak lijst tafels en gasten 
 		Iterable<Tafel> tafels = tafelRepo.findAll();
 		Iterable<Gast> gasten  = gastenRepo.findAll();
@@ -121,11 +123,13 @@ public class TableController {
 		Gast[] gastOpStoel = new Gast[totaalStoelen];
 		TafelSchikking ts = new TafelSchikking(totaalStoelen);
 		ts.setGastOpStoelMax(gastOpStoel);
-		VoorkeurenLijst voorkeuren = maakVoorkeurenLijst();
-		zetVoorkeuren(voorkeuren);
 		
+//		if (session.getAttribute("voorkeuren") != null && session.getAttribute("voorkeuren") instanceof VoorkeurenLijst){
+			VoorkeurenLijst voorkeuren = (VoorkeurenLijst)session.getAttribute("voorkeuren");
+//		} else { /* throw error */ return "redirect:index";}
+	
 		int max_score = -10000;
-		int iterations = 1; 
+		int iterations = 100; 
 		
 		if (gastenRepo.count() > totaalStoelen){ // er zijn meer gasten dan stoelen!! geef een melding.
 		} else {  // plaats gasten RANDOMLY
@@ -135,11 +139,16 @@ public class TableController {
 				int k = 0;	
 				for (Gast g: gasten){
 					gastOpStoel[k++]= g;
-				}				
+				}
 				Collections.shuffle(Arrays.asList(gastOpStoel)); //genereer randomlijst met lengte aantal stoelen waar gasten op geplaatst worde					
+				for (int i=0; i<gastOpStoel.length; i++){
+					if (gastOpStoel[i] != null){System.out.println(gastOpStoel[i].getNaam());
+					} else {System.out.println("nullo");} //werkt prima
+				}
+				
 				zetGastenAanTafels(gastOpStoel, tafels); //gasten worden random aan de tafels gezet
 				int score = 0;
-				score = ts.calcScore(tafels, voorkeuren);
+//				score = ts.calcScore(tafels, voorkeuren);
 				if (score > max_score){
 					max_score = score;
 					ts.setGastOpStoelMax(gastOpStoel); //configuratie met hoogste score wordt opgeslagen in Tafelschikking klasse
@@ -151,13 +160,20 @@ public class TableController {
 				if (ts.getGastOpStoelMax()[i] != null){System.out.println(ts.getGastOpStoelMax()[i].isVrouw());}
 			}
 		}
-		return "redirect:index";
+		return "Schikking";
 	}
 	
-	public VoorkeurenLijst maakVoorkeurenLijst(){
+	@RequestMapping(value="/zetVoorkeuren", method=RequestMethod.POST)
+	public String zetVoorkeuren(boolean manVrouw, boolean opLeeftijd, boolean interesse, boolean relatie,  
+			int factManVrouw, int factOpLeeftijd, int factInteresse, int factRelatie,  HttpSession session){
 		VoorkeurenLijst voorkeuren = new VoorkeurenLijst();
-			// lees alle voorkeuren in en set ze in de klasse !! 
-		return voorkeuren;
+		voorkeuren.setManVrouw(factManVrouw, manVrouw);
+		voorkeuren.setInteresse(factInteresse, interesse);
+		voorkeuren.setRelatie(factRelatie, relatie);
+		voorkeuren.setOpLeeftijd(factOpLeeftijd, opLeeftijd);
+		session.setAttribute("voorkeuren", voorkeuren);
+		System.out.println("voorkeurenlijst: "+voorkeuren.getFactInteresse()+voorkeuren.isInteresse());
+		return "redirect:index";
 	}
 	
 	public void clearIt(Iterable<Tafel> tafels, Iterable<Gast> gasten, Gast[] gastOpStoel){
@@ -194,12 +210,5 @@ public class TableController {
 		} else {
 			return false;
 		}
-	}
-	
-	public void zetVoorkeuren(VoorkeurenLijst voorkeuren){
-		voorkeuren.setManVrouw(5, false);
-		voorkeuren.setInteresse(0, true);
-		voorkeuren.setRelatie(0, true);
-		voorkeuren.setOpLeeftijd(0, true);
 	}
 }

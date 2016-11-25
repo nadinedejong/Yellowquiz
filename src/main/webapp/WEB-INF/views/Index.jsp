@@ -92,7 +92,6 @@ Sorteren op geslacht?	<select name="sorteergeslacht">
 			<td><input type="submit" value='Toevoegen'></td>
 		</tr>
 </table>
-
 </form>
 
 <br><br>
@@ -141,6 +140,69 @@ Sorteren op geslacht?	<select name="sorteergeslacht">
 
 </form>
 
+<h3>De voorkeurenlijst:</h3>
+<form method="post" action="/zetVoorkeuren">
+<table>
+	<tr> 
+		<td> Mannen en vrouwen apart?</td>
+		<td><select name="manVrouw">
+		    <option value="true">ja</option>
+			<option value="false">nee</option></select></td>
+		<td> Hoe belangrijk? Geef een score van 0-5 </td>
+		<td> <select name="factManVrouw">
+			 <option value="0">0</option>
+			 <option value="1">1</option>
+			 <option value="2">2</option>
+			 <option value="3">3</option>
+			 <option value="4">4</option>
+			 <option value="5">5</option></select></td>
+	</tr>
+	<tr> 
+		<td> Dezelfde leeftijd bij mekaar?</td>
+		<td><select name="opLeeftijd">
+		    <option value="true">ja</option>
+			<option value="false">nee</option></select></td>
+		<td> Hoe belangrijk? Geef een score van 0-5 </td>
+		<td> <select name="factOpLeeftijd">
+			 <option value="0">0</option>
+			 <option value="1">1</option>
+			 <option value="2">2</option>
+			 <option value="3">3</option>
+			 <option value="4">4</option>
+			 <option value="5">5</option></select></td>
+	</tr>
+	<tr> 
+		<td> Dezelfde interesses bij mekaar?</td>
+		<td><select name="interesse">
+		    <option value="true">ja</option>
+			<option value="false">nee</option></select></td>
+		<td> Hoe belangrijk? Geef een score van 0-5 </td>
+		<td> <select name="factInteresse">
+			 <option value="0">0</option>
+			 <option value="1">1</option>
+			 <option value="2">2</option>
+			 <option value="3">3</option>
+			 <option value="4">4</option>
+			 <option value="5">5</option></select></td>
+	</tr>
+		<tr> 
+		<td> Dezelfde relaties bij mekaar?</td>
+		<td><select name="relatie">
+		    <option value="true">ja</option>
+			<option value="false">nee</option></select></td>
+		<td> Hoe belangrijk? Geef een score van 0-5 </td>
+		<td> <select name="factRelatie">
+			 <option value="0">0</option>
+			 <option value="1">1</option>
+			 <option value="2">2</option>
+			 <option value="3">3</option>
+			 <option value="4">4</option>
+			 <option value="5">5</option></select></td>
+		<td> <input type="submit"></td>
+	</tr>
+</table>
+</form>
+
 <br><br>
 
 <!-- Hieronder de link om naar de pagina te gaan om gegevens te controleren -->
@@ -151,36 +213,7 @@ Sorteren op geslacht?	<select name="sorteergeslacht">
 
 
 <br><br><br>
-
-<a href="plaatsGasten">Plaats de gasten randomly</a>
 <br>
-
-Tafellijst gasten
-<br><br><br>
-
-<!-- Hier worden gasten aan tafels geplaatst als test -->
-
-
-
-<h3> We plaatsen de gasten aan tafels </h3>
-<ol>
-	<c:forEach items="${gastenlijst}" var="g">
-		<li> Naam: ${g.naam}, Tafel: ${g.tafel.id} </li> 
-	</c:forEach>
-</ol>
-<br>
-Gastenlijst Per Tafel
-<ol>
-	<c:forEach items="${tafels}" var="t">
-		<li> Tafel ID: ${t.id}, Aantal stoelen: ${t.stoelen} <br> 
-			Gasten:
-			<c:forEach items="${t.gasten}" var="g">     
-				${g.naam}, ${g.leeftijd }, ${g.vrouw };
-			</c:forEach>
-		</li> 
-	</c:forEach>
-</ol>
-
 </body>
 </html>
 
