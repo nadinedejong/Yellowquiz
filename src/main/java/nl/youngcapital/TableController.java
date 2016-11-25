@@ -61,9 +61,26 @@ public class TableController {
 		LocalDate parsedDate = LocalDate.parse(datum);
 		e.setDatum(parsedDate);
 		e.setSorteergeslacht(sorteergeslacht);
-		model.addAttribute("events", eventRepo.findAll());
+		//model.addAttribute("events", eventRepo.findAll());
 		e = eventRepo.save(e);
 		return "redirect:index"; 
+	}
+	@RequestMapping(value="/aanpassenEvent")
+	public String aanpassenEvent(HttpServletResponse resp,  String naam, String datum, boolean sorteergeslacht){
+		Event e;
+		try{ 
+			e = eventRepo.findAllByOrderById().get(0);
+			
+		} catch (Exception ex){
+			e = new Event();
+		}
+		e.setNaam(naam);
+		LocalDate parsedDate = LocalDate.parse(datum);
+		e.setDatum(parsedDate);
+		e.setSorteergeslacht(sorteergeslacht);
+		e = eventRepo.save(e);
+		
+		return "redirect:index";
 	}
 	
 	//gaat naar de tweede pagina waar de gegevens worden gecontroleerd, Nadine aangepast
@@ -80,6 +97,8 @@ public class TableController {
 		return "Schikking";
 	}
 	
+	
+		
 	@RequestMapping(value="/deleteGast")
 	public String deleteGast(long id, HttpServletResponse resp){
 		Gast b = gastenRepo.findOne(id);
