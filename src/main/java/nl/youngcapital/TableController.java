@@ -140,10 +140,6 @@ public class TableController {
 					gastOpStoel[k++]= g;
 				}
 				Collections.shuffle(Arrays.asList(gastOpStoel)); //genereer randomlijst met lengte aantal stoelen waar gasten op geplaatst worde					
-				for (int i=0; i<gastOpStoel.length; i++){
-					if (gastOpStoel[i] != null){System.out.println(gastOpStoel[i].getNaam());
-					} else {System.out.println("nullo");} //werkt prima
-				}
 				
 				zetGastenAanTafels(gastOpStoel, tafels); //gasten worden random aan de tafels gezet
 				int score = 0;

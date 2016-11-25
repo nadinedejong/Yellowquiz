@@ -76,14 +76,12 @@ public class TafelSchikking {
 	public int opLeeftijd(Gast g1, Gast g2, VoorkeurenLijst voorkeuren){
 		int score = 0; 
 		
-		System.out.println("berekening is "+((double)Math.abs(g1.getLeeftijd()-g2.getLeeftijd()) / Math.max(g1.getLeeftijd(), g2.getLeeftijd())));
 		if (((double)Math.abs(g1.getLeeftijd()-g2.getLeeftijd()) / Math.max(g1.getLeeftijd(), g2.getLeeftijd())) < 0.30){
 			score -=1;
 		} else {
 			score +=1;
 		}		
 		if (voorkeuren.isOpLeeftijd()) {score *=-1 ;} //true is hogere score bij gelijkere leeftijd		
-		System.out.println("totalscore opLeeftijd is "+score);
 		return voorkeuren.getFactOpLeeftijd()*score; 		
 	}
 	
