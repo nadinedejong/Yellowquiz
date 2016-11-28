@@ -142,7 +142,10 @@ public class TableController {
 		TafelSchikking ts = new TafelSchikking(totaalStoelen);
 		ts.setGastOpStoelMax(gastOpStoel);
 		
-		VoorkeurenLijst voorkeuren = (VoorkeurenLijst)session.getAttribute("voorkeuren");
+//		if (session.getAttribute("voorkeuren") != null && session.getAttribute("voorkeuren") instanceof VoorkeurenLijst){
+			VoorkeurenLijst voorkeuren = (VoorkeurenLijst)session.getAttribute("voorkeuren");
+//		} else { /* throw error */ return "redirect:index";}
+	
 		int max_score = -10000;
 		int iterations = 100; 
 		
@@ -167,6 +170,9 @@ public class TableController {
 			}
 			clearIt(tafels, gasten, gastOpStoel);
 			zetGastenAanTafels(ts.getGastOpStoelMax(), tafels); // configuratie met hoogste score wordt aan tafels gezet.
+			for (int i=0; i<ts.getGastOpStoelMax().length;i++){
+				if (ts.getGastOpStoelMax()[i] != null){System.out.println(ts.getGastOpStoelMax()[i].isVrouw());}
+			}
 		}
 		return "Schikking";
 	}
@@ -192,7 +198,7 @@ public class TableController {
 			g.setTafel(null);
 		}
 		for (int i = 0; i<gastOpStoel.length; i++){
-			gastOpStoel[i] = null; 
+			gastOpStoel[i] = null; // empty is true
 		}
 	}
 
