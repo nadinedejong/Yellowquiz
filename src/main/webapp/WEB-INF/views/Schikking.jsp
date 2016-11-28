@@ -9,5 +9,37 @@
 </head>
 <body>
 Hier komt de uiteindelijke tafelschikking op met javascript of ajax
+
+
+Tafellijst gasten
+<br><br><br>
+
+<!-- Hier worden gasten aan tafels geplaatst als test -->
+
+
+
+<h3> We plaatsen de gasten aan tafels </h3>
+<ol>
+	<c:forEach items="${gastenlijst}" var="g">
+		<li> Naam: ${g.naam}, Tafel: ${g.tafel.id} </li> 
+	</c:forEach>
+</ol>
+<br>
+Gastenlijst Per Tafel
+<ol>
+	<c:forEach items="${tafels}" var="t">
+		<li> Tafel ID: ${t.id}, Aantal stoelen: ${t.stoelen} <br> 
+			Gasten: <br>
+			<c:forEach items="${t.gasten}" var="g"> 
+	
+				${g.naam}, ${g.vrouw}, ${g.leeftijd}, ${g.interesse}, ${g.relatie };
+				<br>
+			</c:forEach>
+		</li> 
+	</c:forEach>
+</ol>
+
+
+
 </body>
 </html>

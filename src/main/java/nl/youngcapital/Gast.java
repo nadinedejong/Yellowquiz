@@ -12,12 +12,45 @@ public class Gast {
 	private long id; 
 	private Tafel tafel;
 	private Event event;
-	private int stoelNr;	
+	private int stoelNr;
+	private boolean empty; 
+
 	private int leeftijd; 
-	private boolean vrouw;		
-	private enum Interesse {VOETBAL, LEGO, GTST, SPREEKWOORDEN, HETWEER};
-	private enum Relatie {FAMILIE, VRIENDEN, COLLEGAS} 
-		
+	private boolean vrouw;	
+	private int relatie; 
+	private int interesse; 
+	
+	public static final int FAM = 0;
+	public static final int VR = 1;
+	public static final int COL = 2;
+	
+	public static final int VOETBAL = 0;
+	public static final int LEGO = 1;
+	public static final int GTST = 2;
+	public static final int SPREEKWOORDEN = 3;
+	
+	public Gast(boolean empty){
+		this.empty = empty; 
+	}
+	
+	public boolean isEmpty() {
+		return empty;
+	}
+	public void setEmpty(boolean empty) {
+		this.empty = empty;
+	}
+	public int getRelatie() {
+		return relatie;
+	}
+	public void setRelatie(int relatie) {
+		this.relatie = relatie;
+	}
+	public int getInteresse() {
+		return interesse;
+	}
+	public void setInteresse(int interesse) {
+		this.interesse = interesse;
+	}
 	public int getStoelNr() {
 		return stoelNr;
 	}

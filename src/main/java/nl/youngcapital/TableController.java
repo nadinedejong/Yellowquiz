@@ -2,13 +2,12 @@ package nl.youngcapital;
 
 
 import java.time.LocalDate;
-import java.util.Iterator;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,7 +28,6 @@ public class TableController {
 	
 	@RequestMapping("/index")
 	public String overzicht(Model model){
-
 		model.addAttribute("events", eventRepo.findAll());
 		model.addAttribute("gastenlijst", gastenRepo.findAllByOrderById());
 		model.addAttribute("tafels", tafelRepo.findAllByOrderById()); 
@@ -44,11 +42,13 @@ public class TableController {
 		}
 		
 	@RequestMapping(value="/maakGast", method=RequestMethod.POST)
-	public String voegToe(String naam, int leeftijd, boolean vrouw){
+	public String voegToe(String naam, int leeftijd, boolean vrouw, int interesse, int relatie){
 		Gast b = new Gast();
 		b.setNaam(naam);
 		b.setLeeftijd(leeftijd);
 		b.setVrouw(vrouw);
+		b.setInteresse(interesse);
+		b.setRelatie(relatie);
 		b = gastenRepo.save(b);
 		return "redirect:index"; 
 	}
@@ -86,14 +86,16 @@ public class TableController {
 	//gaat naar de tweede pagina waar de gegevens worden gecontroleerd, Nadine aangepast
 	@RequestMapping(value="/gegevens-controleren")
 	public String overzicht2(Model model){
-		model.addAttribute("gastenlijst", gastenRepo.findAll());
-		model.addAttribute("tafels", tafelRepo.findAll());
+		model.addAttribute("gastenlijst", gastenRepo.findAllByOrderById());
+		model.addAttribute("tafels", tafelRepo.findAllByOrderById());
 		return "Definitief";
 	}
 	
 	//gaat naar de laatste pagina met de tafelschikking, Nadine aangepast
 	@RequestMapping(value="/tafelschikking")
 	public String overzicht3(Model model){
+		model.addAttribute("gastenlijst", gastenRepo.findAllByOrderById());
+		model.addAttribute("tafels", tafelRepo.findAllByOrderById());
 		return "Schikking";
 	}
 	
@@ -107,7 +109,6 @@ public class TableController {
 			return null; 
 		}
 		gastenRepo.delete(b);	
-		//redirect naar overzicht pagina, nieuwe get request. 
 		return "redirect:index";
 	}
 	
@@ -128,7 +129,9 @@ public class TableController {
 	}
 	
 	@RequestMapping(value="/plaatsGasten")
-	public String plaatsGasten(){
+	public String plaatsGasten(Model model, HttpSession session){
+		model.addAttribute("gastenlijst", gastenRepo.findAllByOrderById());
+		model.addAttribute("tafels", tafelRepo.findAllByOrderById());
 		//maak lijst tafels en gasten 
 		Iterable<Tafel> tafels = tafelRepo.findAll();
 		Iterable<Gast> gasten  = gastenRepo.findAll();
@@ -139,8 +142,9 @@ public class TableController {
 		TafelSchikking ts = new TafelSchikking(totaalStoelen);
 		ts.setGastOpStoelMax(gastOpStoel);
 		
+		VoorkeurenLijst voorkeuren = (VoorkeurenLijst)session.getAttribute("voorkeuren");
 		int max_score = -10000;
-		int iterations = 25; 
+		int iterations = 100; 
 		
 		if (gastenRepo.count() > totaalStoelen){ // er zijn meer gasten dan stoelen!! geef een melding.
 		} else {  // plaats gasten RANDOMLY
@@ -150,11 +154,12 @@ public class TableController {
 				int k = 0;	
 				for (Gast g: gasten){
 					gastOpStoel[k++]= g;
-				}				
+				}
 				Collections.shuffle(Arrays.asList(gastOpStoel)); //genereer randomlijst met lengte aantal stoelen waar gasten op geplaatst worde					
+				
 				zetGastenAanTafels(gastOpStoel, tafels); //gasten worden random aan de tafels gezet
 				int score = 0;
-				score = ts.calcScore(tafels);
+				score = ts.calcScore(tafels, voorkeuren);
 				if (score > max_score){
 					max_score = score;
 					ts.setGastOpStoelMax(gastOpStoel); //configuratie met hoogste score wordt opgeslagen in Tafelschikking klasse
@@ -162,10 +167,20 @@ public class TableController {
 			}
 			clearIt(tafels, gasten, gastOpStoel);
 			zetGastenAanTafels(ts.getGastOpStoelMax(), tafels); // configuratie met hoogste score wordt aan tafels gezet.
-			for (int i=0; i<ts.getGastOpStoelMax().length;i++){
-				if (ts.getGastOpStoelMax()[i] != null){System.out.println(ts.getGastOpStoelMax()[i].isVrouw());}
-			}
 		}
+		return "Schikking";
+	}
+	
+	@RequestMapping(value="/zetVoorkeuren", method=RequestMethod.POST)
+	public String zetVoorkeuren(boolean manVrouw, boolean opLeeftijd, boolean interesse, boolean relatie,  
+			int factManVrouw, int factOpLeeftijd, int factInteresse, int factRelatie,  HttpSession session){
+		VoorkeurenLijst voorkeuren = new VoorkeurenLijst();
+		voorkeuren.setManVrouw(factManVrouw, manVrouw);
+		voorkeuren.setInteresse(factInteresse, interesse);
+		voorkeuren.setRelatie(factRelatie, relatie);
+		voorkeuren.setOpLeeftijd(factOpLeeftijd, opLeeftijd);
+		session.setAttribute("voorkeuren", voorkeuren);
+		System.out.println("voorkeurenlijst: "+voorkeuren.getFactInteresse()+voorkeuren.isInteresse());
 		return "redirect:index";
 	}
 	

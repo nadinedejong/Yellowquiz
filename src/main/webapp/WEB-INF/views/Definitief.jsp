@@ -9,10 +9,7 @@
 </head>
 <body>
 
-
 <H1>Gegevens controleren</H1>
-
-
 
 <h3>Event:</h3>
 <p> Bruiloft, 19-4-1989 </p>
@@ -64,13 +61,29 @@
 		
 </table>
 
+<h3>Voorkeuren:</h3><br>
 
-
+<table>
+	<tr> 
+		<td> Mannen en vrouwen apart?</td>
+		<td><select name="manVrouw">
+		    <option value="true">ja</option>
+			<option value="false">nee</option></select></td>
+		<td> Hoe belangrijk? Geef een score van 0-5 </td>
+		<td> <select name="factManVrouw">
+			 <option value="0">0</option>
+			 <option value="1">1</option>
+			 <option value="2">2</option>
+			 <option value="3">3</option>
+			 <option value="4">4</option>
+			 <option value="5">5</option></select></td>
+	</tr>
+</table>
 
 <h3> Kloppen de gegevens? Ga dan verder naar de tafelschikking</h3><br>
 
 <strong><h2><a href="index"> Gegevens aanpassen </a></h2></strong> &nbsp; &nbsp;
-<strong><a href="tafelschikking"> Maak de tafelschikking</a></strong>
+<strong><a href="plaatsGasten">Genereer een optimale tafelschikking</a></strong>
 
 <br><br>
 
