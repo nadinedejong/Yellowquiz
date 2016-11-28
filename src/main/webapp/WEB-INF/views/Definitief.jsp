@@ -16,7 +16,7 @@
 
 <br><br><br>
 
-<h3>Gasten:</h3><br>
+<h3>Gasten:</h3>
 <table>
 		<!--  Rij 1 (de kopjes van de tabel)-->
 		<tr>
@@ -40,9 +40,7 @@
 
 <br><br><br>
 
-<h3>Tafels:</h3><br>
-
-
+<h3>Tafels:</h3>
 <table>
 		<!--  Rij 1 (de kopjes van de tabel)-->
 		<tr>
@@ -58,25 +56,31 @@
 			<td>rond</td>
 		</tr>
 	</c:forEach>
-		
 </table>
 
-<h3>Voorkeuren:</h3><br>
+<br><br><br>
 
+<h3>Voorkeuren:</h3>
 <table>
 	<tr> 
-		<td> Mannen en vrouwen apart?</td>
-		<td><select name="manVrouw">
-		    <option value="true">ja</option>
-			<option value="false">nee</option></select></td>
-		<td> Hoe belangrijk? Geef een score van 0-5 </td>
-		<td> <select name="factManVrouw">
-			 <option value="0">0</option>
-			 <option value="1">1</option>
-			 <option value="2">2</option>
-			 <option value="3">3</option>
-			 <option value="4">4</option>
-			 <option value="5">5</option></select></td>
+		<td> <c:if test="${voorkeuren.manVrouw == true}"> Mannen en vrouwen apart,</c:if> 
+			 <c:if test="${voorkeuren.manVrouw == false}"> Mannen en vrouwen gemengd,</c:if>
+			met factor ${voorkeuren.factManVrouw}.</td>
+	</tr>
+	<tr>
+		<td> <c:if test="${voorkeuren.opLeeftijd == true}"> Gelijke leeftijden bij mekaar,</c:if> 
+			 <c:if test="${voorkeuren.opLeeftijd == false}"> Leeftijden zoveel mogelijk gemixt,</c:if>
+			met factor ${voorkeuren.factOpLeeftijd}.</td>	
+	</tr>
+	<tr>
+		<td> <c:if test="${voorkeuren.interesse == true}"> Gelijke interesses bij mekaar,</c:if> 
+			 <c:if test="${voorkeuren.interesse == false}"> Interesses zoveel mogelijk gemixt,</c:if>
+			met factor ${voorkeuren.factInteresse}.</td>
+	</tr>
+	<tr>
+		<td> <c:if test="${voorkeuren.relatie == true}"> Gelijke relaties bij mekaar,</c:if> 
+			 <c:if test="${voorkeuren.relatie == false}"> Relaties zoveel mogelijk gemixt,</c:if>
+			met factor ${voorkeuren.factRelatie}.</td>
 	</tr>
 </table>
 

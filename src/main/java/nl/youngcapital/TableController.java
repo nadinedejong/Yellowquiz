@@ -27,7 +27,7 @@ public class TableController {
 	private EventRepository eventRepo;
 	
 	@RequestMapping("/index")
-	public String overzicht(Model model){
+	public String overzicht(Model model, HttpSession session){
 		model.addAttribute("events", eventRepo.findAll());
 		model.addAttribute("gastenlijst", gastenRepo.findAllByOrderById());
 		model.addAttribute("tafels", tafelRepo.findAllByOrderById()); 
@@ -85,9 +85,11 @@ public class TableController {
 	
 	//gaat naar de tweede pagina waar de gegevens worden gecontroleerd, Nadine aangepast
 	@RequestMapping(value="/gegevens-controleren")
-	public String overzicht2(Model model){
+	public String overzicht2(Model model, HttpSession session){
 		model.addAttribute("gastenlijst", gastenRepo.findAllByOrderById());
 		model.addAttribute("tafels", tafelRepo.findAllByOrderById());
+		VoorkeurenLijst voorkeuren = (VoorkeurenLijst)session.getAttribute("voorkeuren");
+		model.addAttribute(voorkeuren);
 		return "Definitief";
 	}
 	
@@ -97,9 +99,7 @@ public class TableController {
 		model.addAttribute("gastenlijst", gastenRepo.findAllByOrderById());
 		model.addAttribute("tafels", tafelRepo.findAllByOrderById());
 		return "Schikking";
-	}
-	
-	
+	}	
 		
 	@RequestMapping(value="/deleteGast")
 	public String deleteGast(long id, HttpServletResponse resp){
@@ -149,7 +149,9 @@ public class TableController {
 		int max_score = -10000;
 		int iterations = 100; 
 		
-		if (gastenRepo.count() > totaalStoelen){ // er zijn meer gasten dan stoelen!! geef een melding.
+		if (gastenRepo.count() > totaalStoelen){ 
+			// er zijn geen genoeg stoelen! geef melding
+			return "meerstoelen";
 		} else {  // plaats gasten RANDOMLY
 			for (int l = 0; l<iterations; l++){
 				System.out.println("ITERATIE "+l);		

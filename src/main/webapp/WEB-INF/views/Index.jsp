@@ -56,7 +56,7 @@
 
 	<!-- Hier begint het formulier om de gasten toe te voegen, met tabel erin -->
 
-	<h3>De gastenlijst:</h3>
+	<h3>Vul de gastenlijst in:</h3>
 	
 	<jsp:include page="GastenlijstForm.jsp" />
 	
@@ -66,27 +66,49 @@
 
 	<!-- Hier begint het formulier om de tafels toe te voegen met tabel erin -->
 
-	<h3>De tafels:</h3>
+	<h3>Geef de lijst van beschikbare tafels:</h3>
 
 	<jsp:include page="TafelForm.jsp" />
 	
 	
 	
-	<h3>De voorkeurenlijst:</h3>
+	<h3>Wat zijn uw voorkeuren voor de tafelschikking?:</h3>
 
-	<jsp:include page="GastenlijstForm.jsp" />
+	<jsp:include page="VoorkeurenForm.jsp" />
 
 	<br>
 
 	<!-- Hieronder de link om naar de pagina te gaan om gegevens te controleren -->
+	<c:if test="${voorkeuren != null}"> 
+		<table>
+	<tr> 
+		<td> <c:if test="${voorkeuren.manVrouw == true}"> Mannen en vrouwen apart,</c:if> 
+			 <c:if test="${voorkeuren.manVrouw == false}"> Mannen en vrouwen gemengd,</c:if>
+			met factor ${voorkeuren.factManVrouw}.</td>
+	</tr>
+	<tr>
+		<td> <c:if test="${voorkeuren.opLeeftijd == true}"> Gelijke leeftijden bij mekaar,</c:if> 
+			 <c:if test="${voorkeuren.opLeeftijd == false}"> Leeftijden zoveel mogelijk gemixt,</c:if>
+			met factor ${voorkeuren.factOpLeeftijd}.</td>	
+	</tr>
+	<tr>
+		<td> <c:if test="${voorkeuren.interesse == true}"> Gelijke interesses bij mekaar,</c:if> 
+			 <c:if test="${voorkeuren.interesse == false}"> Interesses zoveel mogelijk gemixt,</c:if>
+			met factor ${voorkeuren.factInteresse}.</td>
+	</tr>
+	<tr>
+		<td> <c:if test="${voorkeuren.relatie == true}"> Gelijke relaties bij mekaar,</c:if> 
+			 <c:if test="${voorkeuren.relatie == false}"> Relaties zoveel mogelijk gemixt,</c:if>
+			met factor ${voorkeuren.factRelatie}.</td>
+	</tr>
+</table>
 
-	<h3>Klaar met invullen? Klik hieronder voor het controleren van de
-		gegevens</h3>
-
-	<strong><h2>
-			<a href="gegevens-controleren"> --> Gegevens controleren</a></strong>
-	</h2>
-	
+		<h3>Klaar met invullen? Klik hieronder voor het controleren van de
+			gegevens</h3>
+		<strong><h2>
+				<a href="gegevens-controleren"> --> Gegevens controleren</a></strong>
+		</h2>
+	</c:if>
 	<br>
 	
 	<jsp:include page="OnzeFooter.jsp" />
