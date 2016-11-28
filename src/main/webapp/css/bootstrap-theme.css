@@ -3,7 +3,13 @@
  * Copyright 2011-2014 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
-
+html { 
+  background: url('gedektetafel.jpeg') no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
 .btn-default,
 .btn-primary,
 .btn-success,
@@ -40,6 +46,7 @@
 .btn:active,
 .btn.active {
   background-image: none;
+  
 }
 .btn-default {
   text-shadow: 0 1px 0 #fff;
