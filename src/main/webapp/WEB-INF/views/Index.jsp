@@ -37,12 +37,11 @@
 	
 	<h1>Jouw evenement</h1>
 
-	<p>Vul hieronder de gegevens in van jouw evenement, voeg de gasten
-		toe en de tafels. Als alles klopt, klik je onderaan op de verzendknop.
-		De ideale tafelschikking voor het evenement wordt dan berekend.</p>
-
-
-	<br>
+	<p><i>Vul hieronder de gegevens in van jouw evenement. Maak een gastenlijst en een lijst van de 
+	   beschikbare tafels. Voer vervolgens jouw wensen in voor een ideale tafelschikking, zoals, 
+	   mannen of vrouwen gemengd? Familie bij mekaar en collega's aan een andere tafel, of juist
+	   door elkaar?  Als alles klopt, klik je onderaan op de verzendknop. De ideale tafelschikking 
+	   voor het evenement wordt dan berekend.</p></i>
 
 
 	<h3>Het evenement:</h3>
@@ -69,9 +68,10 @@
 	
 	
 	
-	<h3>Wat zijn uw voorkeuren voor de tafelschikking?:</h3>
-
-
+	<h3>Wat zijn je voorkeuren voor de tafelschikking?:</h3>
+	<i>De score representeert een 'belangrijkheidsfactor'. Deze kan een waarde 0 t/m 5 hebben. 
+	Bij 0 wordt de voorkeur niet meegewogen, bij 5 maximaal.</i>
+	<br><br>
 	<%@include file="VoorkeurenForm.jsp"%>
 
 	<br>

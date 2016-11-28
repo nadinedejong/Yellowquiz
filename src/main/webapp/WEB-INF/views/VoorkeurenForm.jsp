@@ -9,7 +9,7 @@
 		<td><select name="manVrouw">
 		    <option value="true">ja</option>
 			<option value="false">nee</option></select></td>
-		<td> Hoe belangrijk? Geef een score van 0-5 </td>
+		<td> &nbsp;&nbsp;Hoe belangrijk? Geef een score van 0-5 </td>
 		<td> <select name="factManVrouw">
 			 <option value="0">0</option>
 			 <option value="1">1</option>
@@ -23,7 +23,7 @@
 		<td><select name="opLeeftijd">
 		    <option value="true">ja</option>
 			<option value="false">nee</option></select></td>
-		<td> Hoe belangrijk? Geef een score van 0-5 </td>
+		<td> &nbsp;&nbsp;Hoe belangrijk? Geef een score van 0-5 </td>
 		<td> <select name="factOpLeeftijd">
 			 <option value="0">0</option>
 			 <option value="1">1</option>
@@ -37,7 +37,7 @@
 		<td><select name="interesse">
 		    <option value="true">ja</option>
 			<option value="false">nee</option></select></td>
-		<td> Hoe belangrijk? Geef een score van 0-5 </td>
+		<td> &nbsp;&nbsp;Hoe belangrijk? Geef een score van 0-5 </td>
 		<td> <select name="factInteresse">
 			 <option value="0">0</option>
 			 <option value="1">1</option>
@@ -51,7 +51,7 @@
 		<td><select name="relatie">
 		    <option value="true">ja</option>
 			<option value="false">nee</option></select></td>
-		<td> Hoe belangrijk? Geef een score van 0-5 </td>
+		<td> &nbsp;&nbsp;Hoe belangrijk? Geef een score van 0-5 </td>
 		<td> <select name="factRelatie">
 			 <option value="0">0</option>
 			 <option value="1">1</option>

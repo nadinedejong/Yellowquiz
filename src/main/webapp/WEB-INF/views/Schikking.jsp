@@ -22,6 +22,11 @@
 <!-- Dit is de navigatiebar -->
 	<%@include file="Navbar.jsp" %>
 
+	<div class="row">
+	<div class="col-md-2"></div>
+
+	<div class="col-md-8">
+
 <br><br><br>
 
 
@@ -73,6 +78,8 @@
 
 <!-- Hier is de footer -->	
 <%@include file="OnzeFooter.jsp"%>
-
+</div>
+<div class="col-md-2"></div>
+</div>
 </body>
 </html>

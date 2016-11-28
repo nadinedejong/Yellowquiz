@@ -6,9 +6,24 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>GegevensControle</title>
+
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="js/forminput.js"></script>
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="css/main.css">
+
 </head>
 <body>
-
+<!-- Dit is de navigatiebar -->
+	<%@include file="Navbar.jsp" %>
+	
+	<div class="row">
+	<div class="col-md-2"></div>
+	<div class="col-md-8">
+<br><br>
 <H1>Gegevens controleren</H1>
 
 <h3>Event:</h3>
@@ -24,7 +39,8 @@
 			<th>Naam</th>
 			<th>Leeftijd</th>
 			<th>Geslacht</th>
-
+			<th>Relatie</th>
+			<th>Actie</th>
 		</tr>
 
 		<!--  Rij 2 t/m... (dus de ingevoerde gasten) -->
@@ -33,7 +49,13 @@
 			<td>${b.naam}</td>
 			<td>${b.leeftijd}</td>
 			<td><c:if test="${b.vrouw == true}"> vrouw </c:if> <c:if test="${b.vrouw == false}"> man </c:if>  </td>
-
+			<td><c:if test="${b.interesse == 0}"> voetbal </c:if>
+				<c:if test="${b.interesse == 1}"> lego </c:if>
+				<c:if test="${b.interesse == 2}"> gtst </c:if>
+				<c:if test="${b.interesse == 3}"> spreekwoorden </c:if></td>
+			<td><c:if test="${b.relatie == 0}"> familie </c:if>
+				<c:if test="${b.relatie == 1}"> vrienden </c:if>
+				<c:if test="${b.relatie == 2}"> collega's </c:if></td>
 		</tr>
 	</c:forEach>		
 </table>
@@ -58,7 +80,7 @@
 	</c:forEach>
 </table>
 
-<br><br><br>
+<br>
 
 <h3>Voorkeuren:</h3>
 <table>
@@ -84,12 +106,21 @@
 	</tr>
 </table>
 
-<h3> Kloppen de gegevens? Ga dan verder naar de tafelschikking</h3><br>
+<br><br><br>
 
-<strong><h2><a href="index"> Gegevens aanpassen </a></h2></strong> &nbsp; &nbsp;
-<strong><a href="plaatsGasten">Genereer een optimale tafelschikking</a></strong>
+<h3> Kloppen de gegevens?  <a href="plaatsGasten">Calculeer een optimale tafelschikking</a></h3>
+<h3> Zoniet, <a href="index"> pas de gegevens aan. </a></h3></strong> &nbsp; &nbsp;
+
 
 <br>
+<!-- Hier is de footer -->	
+<%@include file="OnzeFooter.jsp"%>
+
+	   
+	   
+ </div>
+<div class="col-md-2"></div>
+</div>
 
 </body>
 </html>
