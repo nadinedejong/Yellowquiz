@@ -14,7 +14,7 @@
 <h3>Event:</h3>
 <p> Bruiloft, 19-4-1989 </p>
 
-<br><br><br>
+<br>
 
 <h3>Gasten:</h3><br>
 <table>
@@ -38,7 +38,7 @@
 	</c:forEach>		
 </table>
 
-<br><br><br>
+<br>
 
 <h3>Tafels:</h3><br>
 
@@ -85,7 +85,7 @@
 <strong><h2><a href="index"> Gegevens aanpassen </a></h2></strong> &nbsp; &nbsp;
 <strong><a href="plaatsGasten">Genereer een optimale tafelschikking</a></strong>
 
-<br><br>
+<br>
 
 </body>
 </html>

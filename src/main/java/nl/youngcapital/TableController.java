@@ -147,7 +147,7 @@ public class TableController {
 //		} else { /* throw error */ return "redirect:index";}
 	
 		int max_score = -10000;
-		int iterations = 100; 
+		int iterations = 10; 
 		
 		if (gastenRepo.count() > totaalStoelen){ // er zijn meer gasten dan stoelen!! geef een melding.
 		} else {  // plaats gasten RANDOMLY

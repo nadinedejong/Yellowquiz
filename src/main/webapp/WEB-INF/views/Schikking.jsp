@@ -5,41 +5,74 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+
 <title>Schikking</title>
+
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="js/forminput.js"></script>
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="css/main.css">
+
 </head>
 <body>
-Hier komt de uiteindelijke tafelschikking op met javascript of ajax
 
+<!-- Dit is de navigatiebar -->
+	<%@include file="Navbar.jsp" %>
 
-Tafellijst gasten
 <br><br><br>
 
-<!-- Hier worden gasten aan tafels geplaatst als test -->
 
+<h1>Tafelschikking gasten</h1>
 
-
-<h3> We plaatsen de gasten aan tafels </h3>
-<ol>
-	<c:forEach items="${gastenlijst}" var="g">
-		<li> Naam: ${g.naam}, Tafel: ${g.tafel.id} </li> 
-	</c:forEach>
-</ol>
 <br>
-Gastenlijst Per Tafel
-<ol>
-	<c:forEach items="${tafels}" var="t">
-		<li> Tafel ID: ${t.id}, Aantal stoelen: ${t.stoelen} <br> 
-			Gasten: <br>
-			<c:forEach items="${t.gasten}" var="g"> 
-	
-				${g.naam}, ${g.vrouw}, ${g.leeftijd}, ${g.interesse}, ${g.relatie };
-				<br>
+
+<h3>Overzicht:</h3>
+<br>
+	<table>
+
+			<!--  Rij 2 t/m... (dus de ingevoerde gasten) -->
+			<c:forEach items="${ tafels }" var="t" varStatus="status">
+				<tr>
+					<th>Tafel ${ status.count } </th>
+				</tr>
+		
+				<tr>
+					<th>&nbsp;</th>
+					<th>&nbsp;</th>
+					<th>Gast &nbsp; </th>
+					<th>Leeftijd &nbsp;</th>
+					<th>Geslacht &nbsp;</th>
+					<th>Interesse &nbsp;</th>
+					<th>Relatie &nbsp;</th>
+				</tr>
+				<c:forEach items="${ t.gasten }" var="g" varStatus="gastnummer">	
+					<tr>
+						<td></td>
+						<td>${gastnummer.count } &nbsp;</td>
+						<td>${g.naam }</td>
+						<td>${g.leeftijd }</td>
+						<td><c:if test="${g.vrouw == true}"> vrouw </c:if> 
+							<c:if test="${g.vrouw == false}"> man </c:if>  </td>
+						<td><c:if test="${g.interesse == 0}"> voetbal </c:if>
+							<c:if test="${g.interesse == 1}"> lego </c:if>
+							<c:if test="${g.interesse == 2}"> gtst </c:if>
+							<c:if test="${g.interesse == 3}"> spreekwoorden </c:if></td>
+						<td><c:if test="${g.relatie == 0}"> familie </c:if>
+							<c:if test="${g.relatie == 1}"> vrienden </c:if>
+							<c:if test="${g.relatie == 2}"> collega's </c:if></td>
+					</tr>
+				</c:forEach>
+				<td><br></td>
 			</c:forEach>
-		</li> 
-	</c:forEach>
-</ol>
+	</table>
 
 
+
+<!-- Hier is de footer -->	
+<%@include file="OnzeFooter.jsp"%>
 
 </body>
 </html>
