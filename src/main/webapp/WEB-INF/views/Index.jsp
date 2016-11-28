@@ -10,10 +10,9 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script src="js/forminput.js"></script>
+
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-
 <link rel="stylesheet" href="css/bootstrap.min.css">
-
 <link rel="stylesheet" href="css/bootstrap-theme.min.css">
 <link rel="stylesheet" href="css/main.css">
 
@@ -26,8 +25,8 @@
 
 
 <body>
-
-	<jsp:include page="Navbar.jsp" />
+<!-- Dit is de navigatiebar -->
+	<%@include file="Navbar.jsp" %>
 
 	<div class="row">
 	<div class="col-md-2"></div>
@@ -49,8 +48,7 @@
 	<h3>Het evenement:</h3>
 
 
-	<jsp:include page="EvenementForm.jsp" />
-
+	<%@include file="EvenementForm.jsp" %>
 
 	<br>
 
@@ -58,9 +56,8 @@
 
 	<h3>Vul de gastenlijst in:</h3>
 	
-	<jsp:include page="GastenlijstForm.jsp" />
+	<%@include file="GastenlijstForm.jsp"%>
 	
-
 	<br>
 
 
@@ -68,13 +65,14 @@
 
 	<h3>Geef de lijst van beschikbare tafels:</h3>
 
-	<jsp:include page="TafelForm.jsp" />
+	<%@include file="TafelForm.jsp"%>
 	
 	
 	
 	<h3>Wat zijn uw voorkeuren voor de tafelschikking?:</h3>
 
-	<jsp:include page="VoorkeurenForm.jsp" />
+
+	<%@include file="VoorkeurenForm.jsp"%>
 
 	<br>
 
@@ -111,7 +109,9 @@
 	</c:if>
 	<br>
 	
-	<jsp:include page="OnzeFooter.jsp" />
+
+<!-- Hier is de footer -->	
+<%@include file="OnzeFooter.jsp"%>
 
 	   
 	   
