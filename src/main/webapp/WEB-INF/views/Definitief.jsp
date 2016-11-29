@@ -39,8 +39,8 @@
 			<th>Naam</th>
 			<th>Leeftijd</th>
 			<th>Geslacht</th>
+			<th>Interesse</th>
 			<th>Relatie</th>
-			<th>Actie</th>
 		</tr>
 
 		<!--  Rij 2 t/m... (dus de ingevoerde gasten) -->

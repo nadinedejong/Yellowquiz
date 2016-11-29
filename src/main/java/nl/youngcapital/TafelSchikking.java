@@ -49,14 +49,15 @@ public class TafelSchikking {
 				score += opRelatie(gasten.get(i), gasten.get(i+1), voorkeuren);
 				i++;
 			}
-			if (t.getStoelen() > 2 && t.checkVol()){ 
+			if (t.getStoelen() > 2 && t.checkVol()){
+				Gast eerste = gasten.get(0);
+				Gast laatste = gasten.get(gasten.size()-1);
 				/*laatste plek wordt met eerste vergeleken als alle stoelen bezet zijn en er meer dan 2 stoelen zijn*/ 
-				score += gemengdManVrouw(gasten.get(0), gasten.get(i), voorkeuren);
-				score += opLeeftijd(gasten.get(0), gasten.get(i), voorkeuren);
-				score += opInteresse(gasten.get(0), gasten.get(i), voorkeuren);
-				score += opRelatie(gasten.get(0), gasten.get(i), voorkeuren);
-			}
-			
+				score += gemengdManVrouw(eerste, laatste, voorkeuren);
+				score += opLeeftijd(eerste, laatste, voorkeuren);
+				score += opInteresse(eerste, laatste, voorkeuren);
+				score += opRelatie(eerste, laatste, voorkeuren);
+			}			
 		}
 		return score; 
 	}	
