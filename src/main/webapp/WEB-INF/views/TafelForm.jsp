@@ -36,6 +36,7 @@
 						<option value="Vorm.RECHTHOEK">rechthoek</option>
 				</select></td>
 				<td><input type="submit" value='Toevoegen' role="button" class="btn btn-success btn-xs"></td>
+				
 			</tr>
 
 		</table>

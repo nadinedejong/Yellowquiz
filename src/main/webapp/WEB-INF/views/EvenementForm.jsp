@@ -23,9 +23,9 @@
 			<br> Datum: &nbsp;<input type="date" name="datum"
 				<c:if test="${ !empty events }"> 
 								value ="${ events[0].datum }"> </c:if>>
-			<br> Sorteren op geslacht? <select name="sorteergeslacht">
+			<!--  <br> Sorteren op geslacht? <select name="sorteergeslacht">
 				<option value="false">ja</option>
-				<option value="true">nee</option>
+				<option value="true">nee</option>-->
 			</select><br> <input id="eventsubmitknop" type="submit" value="Opslaan">
 		</form>
 	</div>

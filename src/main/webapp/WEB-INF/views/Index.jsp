@@ -48,8 +48,6 @@
 	<div class="col-md-8 achtergrondkleur">
 
 
-
-
 	<!-- Hier is het evenementformulier -->
 	
 	<h1>Jouw evenement</h1>
@@ -61,7 +59,7 @@
 	   voor het evenement wordt dan berekend.</i></p>
 
 
-	<h3>Het evenement:</h3>
+	<h3>Nieuw evenement aanmaken</h3>
 
 
 	<%@include file="EvenementForm.jsp" %><br>
@@ -70,35 +68,44 @@
 
 	<!-- Hier begint het formulier om de gasten toe te voegen, met tabel erin -->
 
-	<h3>Vul de gastenlijst in:</h3>
 	
-	<%@include file="GastenlijstForm.jsp"%><br>
-	
-	
+	<br><button class="accordion">1. Vul de gastenlijst in</button>
+	<div class="panel">
+  		<p>
+	<%@include file="GastenlijstForm.jsp"%></p>
+	</div><br>
 
 
 	<!-- Hier begint het formulier om de tafels toe te voegen met tabel erin -->
-
-	<h3>Geef de lijst van beschikbare tafels:</h3>
-
-	<%@include file="TafelForm.jsp"%><br>
+	
+	<br><button class="accordion">2. Voer de beschikbare tafels in</button>
+		<div class="panel">
+  		<p>
+	
+	<%@include file="TafelForm.jsp"%></p>
+	</div><br>
 	
 	
+	<!--  Hier begint het formulier voor het invullen van de voorkeuren -->
 	
-	<h3>Wat zijn je voorkeuren voor de tafelschikking?:</h3>
+	
+		<br><button class="accordion">3. Geef je voorkeuren aan</button>
+	<div class="panel">
+  		<p>
+	
 	<p><i>De score representeert een 'belangrijkheidsfactor'. Deze kan een waarde 0 t/m 5 hebben.<br>
 	Bij 0 wordt de voorkeur niet meegewogen, bij 5 maximaal.</i></p>
 	<br><br>
 	
-	<%@include file="VoorkeurenForm.jsp"%><br>
-
+	<%@include file="VoorkeurenForm.jsp"%></p>
+	</div><br>
 	
 
 	<!-- Hieronder de link om naar de pagina te gaan om gegevens te controleren -->
 	<c:if test="${voorkeuren != null}"> 
 
-		<h3>Klaar met invullen? Klik hieronder voor het controleren van de
-			gegevens</h3>
+		<br><p><i>Klaar met invullen? Klik hieronder voor het controleren van de
+			gegevens</i></p>
 		
 				<a class="btn btn-primary btn-lg" href="gegevens-controleren" role="button">Naar gegevens controleren</a>
 				
@@ -115,7 +122,17 @@
 	</div>	   
 
 
-   
+ <script>
+var acc = document.getElementsByClassName("accordion");
+var i;
+
+for (i = 0; i < acc.length; i++) {
+    acc[i].onclick = function(){
+        this.classList.toggle("active");
+        this.nextElementSibling.classList.toggle("show");
+  }
+}
+</script>
 
 </body>
 </html>

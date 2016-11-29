@@ -37,6 +37,8 @@
 	<div class="col-md-2"></div>
 	<div class="col-md-8 achtergrondkleur">
 
+<br>
+
 <H1>Gegevens controleren</H1>
 
 <h3>Evenement: ${events[0].naam },&nbsp; op ${events[0].datum }</h3>
@@ -102,17 +104,17 @@
 			met factor ${voorkeuren.factManVrouw}.</td>
 	</tr>
 	<tr>
-		<td> <c:if test="${voorkeuren.opLeeftijd == true}"> Gelijke leeftijden bij mekaar,</c:if> 
+		<td> <c:if test="${voorkeuren.opLeeftijd == true}"> Gelijke leeftijden bij elkaar,</c:if> 
 			 <c:if test="${voorkeuren.opLeeftijd == false}"> Leeftijden zoveel mogelijk gemixt,</c:if>
 			met factor ${voorkeuren.factOpLeeftijd}.</td>	
 	</tr>
 	<tr>
-		<td> <c:if test="${voorkeuren.interesse == true}"> Gelijke interesses bij mekaar,</c:if> 
+		<td> <c:if test="${voorkeuren.interesse == true}"> Gelijke interesses bij elkaar,</c:if> 
 			 <c:if test="${voorkeuren.interesse == false}"> Interesses zoveel mogelijk gemixt,</c:if>
 			met factor ${voorkeuren.factInteresse}.</td>
 	</tr>
 	<tr>
-		<td> <c:if test="${voorkeuren.relatie == true}"> Gelijke relaties bij mekaar,</c:if> 
+		<td> <c:if test="${voorkeuren.relatie == true}"> Gelijke relaties bij elkaar,</c:if> 
 			 <c:if test="${voorkeuren.relatie == false}"> Relaties zoveel mogelijk gemixt,</c:if>
 			met factor ${voorkeuren.factRelatie}.</td>
 	</tr>
