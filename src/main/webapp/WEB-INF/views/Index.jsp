@@ -12,17 +12,18 @@
 <script src="js/forminput.js"></script>
 
 <style>
-html { 
+ 
+ html{
   background: url('gedektetafel.jpeg') no-repeat center center fixed; 
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-}
+  }
 </style>
 
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/bootstrap.css">
 <link rel="stylesheet" href="css/bootstrap-theme.min.css">
 <link rel="stylesheet" href="css/main.css">
 
@@ -35,13 +36,19 @@ html {
 
 
 <body>
-<!-- Dit is de navigatiebar -->
+
+
+
+	<!-- De navigatiebar -->
 	<%@include file="Navbar.jsp" %>
 
 	<div class="row">
 	<div class="col-md-2"></div>
 
-	<div class="col-md-8">
+	<div class="col-md-8 achtergrondkleur">
+
+
+
 
 	<!-- Hier is het evenementformulier -->
 	
@@ -51,71 +58,51 @@ html {
 	   beschikbare tafels. Voer vervolgens jouw wensen in voor een ideale tafelschikking, zoals, 
 	   mannen of vrouwen gemengd? Familie bij mekaar en collega's aan een andere tafel, of juist
 	   door elkaar?  Als alles klopt, klik je onderaan op de verzendknop. De ideale tafelschikking 
-	   voor het evenement wordt dan berekend.</p></i>
+	   voor het evenement wordt dan berekend.</i></p>
 
 
 	<h3>Het evenement:</h3>
 
 
-	<%@include file="EvenementForm.jsp" %>
+	<%@include file="EvenementForm.jsp" %><br>
 
-	<br>
+	
 
 	<!-- Hier begint het formulier om de gasten toe te voegen, met tabel erin -->
 
 	<h3>Vul de gastenlijst in:</h3>
 	
-	<%@include file="GastenlijstForm.jsp"%>
+	<%@include file="GastenlijstForm.jsp"%><br>
 	
-	<br>
+	
 
 
 	<!-- Hier begint het formulier om de tafels toe te voegen met tabel erin -->
 
 	<h3>Geef de lijst van beschikbare tafels:</h3>
 
-	<%@include file="TafelForm.jsp"%>
+	<%@include file="TafelForm.jsp"%><br>
 	
 	
 	
 	<h3>Wat zijn je voorkeuren voor de tafelschikking?:</h3>
-	<i>De score representeert een 'belangrijkheidsfactor'. Deze kan een waarde 0 t/m 5 hebben. 
-	Bij 0 wordt de voorkeur niet meegewogen, bij 5 maximaal.</i>
+	<p><i>De score representeert een 'belangrijkheidsfactor'. Deze kan een waarde 0 t/m 5 hebben.<br>
+	Bij 0 wordt de voorkeur niet meegewogen, bij 5 maximaal.</i></p>
 	<br><br>
-	<%@include file="VoorkeurenForm.jsp"%>
+	
+	<%@include file="VoorkeurenForm.jsp"%><br>
 
-	<br>
+	
 
 	<!-- Hieronder de link om naar de pagina te gaan om gegevens te controleren -->
 	<c:if test="${voorkeuren != null}"> 
-		<table>
-	<tr> 
-		<td> <c:if test="${voorkeuren.manVrouw == true}"> Mannen en vrouwen apart,</c:if> 
-			 <c:if test="${voorkeuren.manVrouw == false}"> Mannen en vrouwen gemengd,</c:if>
-			met factor ${voorkeuren.factManVrouw}.</td>
-	</tr>
-	<tr>
-		<td> <c:if test="${voorkeuren.opLeeftijd == true}"> Gelijke leeftijden bij mekaar,</c:if> 
-			 <c:if test="${voorkeuren.opLeeftijd == false}"> Leeftijden zoveel mogelijk gemixt,</c:if>
-			met factor ${voorkeuren.factOpLeeftijd}.</td>	
-	</tr>
-	<tr>
-		<td> <c:if test="${voorkeuren.interesse == true}"> Gelijke interesses bij mekaar,</c:if> 
-			 <c:if test="${voorkeuren.interesse == false}"> Interesses zoveel mogelijk gemixt,</c:if>
-			met factor ${voorkeuren.factInteresse}.</td>
-	</tr>
-	<tr>
-		<td> <c:if test="${voorkeuren.relatie == true}"> Gelijke relaties bij mekaar,</c:if> 
-			 <c:if test="${voorkeuren.relatie == false}"> Relaties zoveel mogelijk gemixt,</c:if>
-			met factor ${voorkeuren.factRelatie}.</td>
-	</tr>
-</table>
 
 		<h3>Klaar met invullen? Klik hieronder voor het controleren van de
 			gegevens</h3>
-		<strong><h2>
-				<a href="gegevens-controleren"> --> Gegevens controleren</a></strong>
-		</h2>
+		
+				<a class="btn btn-primary btn-lg" href="gegevens-controleren" role="button">Naar gegevens controleren</a>
+				
+		
 	</c:if>
 	<br>
 	
@@ -123,11 +110,12 @@ html {
 <!-- Hier is de footer -->	
 <%@include file="OnzeFooter.jsp"%>
 
-	   
-	   
  </div>
 	<div class="col-md-2"></div>
-	</div>
+	</div>	   
+
+
+   
 
 </body>
 </html>

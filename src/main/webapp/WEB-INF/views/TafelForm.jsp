@@ -4,14 +4,13 @@
 
 <form method="post" action="/maakTafel">
 
-		<table>
+		<table class="table">
 
 			<!--  Rij 1 (de kopjes van de tabel)-->
 			<tr>
 				<th>Tafelnummer</th>
 				<th>Aantal stoelen</th>
 				<th>Vorm</th>
-				<th>TafelID</th>
 				<th>Actie</th>
 			</tr>
 
@@ -21,8 +20,8 @@
 					<td>Tafel ${aant.count}</td>
 					<td>${t.stoelen}</td>
 					<td>rond</td>
-					<td>${t.id}</td>
-					<td><a href="deleteTafel?id=${t.id}">verwijder</a></td>
+					<td><a class="btn btn-danger btn-xs" href="deleteTafel?id=${t.id}" role="button">verwijder</a></td>
+					
 				</tr>
 			</c:forEach>
 
@@ -36,7 +35,7 @@
 						<option value="Vorm.VIERKANT">vierkant</option>
 						<option value="Vorm.RECHTHOEK">rechthoek</option>
 				</select></td>
-				<td><input type="submit" value='Toevoegen'></td>
+				<td><input type="submit" value='Toevoegen' role="button" class="btn btn-success btn-xs"></td>
 			</tr>
 
 		</table>

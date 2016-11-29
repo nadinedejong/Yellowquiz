@@ -88,6 +88,7 @@ public class TableController {
 	public String overzicht2(Model model, HttpSession session){
 		model.addAttribute("gastenlijst", gastenRepo.findAllByOrderById());
 		model.addAttribute("tafels", tafelRepo.findAllByOrderById());
+		model.addAttribute("events", eventRepo.findAll());
 		VoorkeurenLijst voorkeuren = (VoorkeurenLijst)session.getAttribute("voorkeuren");
 		model.addAttribute(voorkeuren);
 		return "Definitief";

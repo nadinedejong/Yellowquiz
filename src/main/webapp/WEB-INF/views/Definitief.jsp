@@ -5,6 +5,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+
+<br><br><br>
+
 <title>GegevensControle</title>
 
 <script
@@ -15,6 +18,16 @@
 <link rel="stylesheet" href="css/bootstrap-theme.min.css">
 <link rel="stylesheet" href="css/main.css">
 
+<style>
+ html{
+  background: url('gedektetafel3.jpg') no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  }
+</style>
+
 </head>
 <body>
 <!-- Dit is de navigatiebar -->
@@ -22,17 +35,16 @@
 	
 	<div class="row">
 	<div class="col-md-2"></div>
-	<div class="col-md-8">
-<br><br>
+	<div class="col-md-8 achtergrondkleur">
+
 <H1>Gegevens controleren</H1>
 
-<h3>Event:</h3>
-<p> Bruiloft, 19-4-1989 </p>
+<h3>Evenement: ${events[0].naam },&nbsp; op ${events[0].datum }</h3>
 
 <br>
 
 <h3>Gasten:</h3>
-<table>
+<table class="table">
 		<!--  Rij 1 (de kopjes van de tabel)-->
 		<tr>
 			<th>Nummer</th>
@@ -63,7 +75,7 @@
 <br>
 
 <h3>Tafels:</h3>
-<table>
+<table class="table">
 		<!--  Rij 1 (de kopjes van de tabel)-->
 		<tr>
 			<th>Tafelnummer</th>
@@ -83,7 +95,7 @@
 <br>
 
 <h3>Voorkeuren:</h3>
-<table>
+<table class="table">
 	<tr> 
 		<td> <c:if test="${voorkeuren.manVrouw == true}"> Mannen en vrouwen apart,</c:if> 
 			 <c:if test="${voorkeuren.manVrouw == false}"> Mannen en vrouwen gemengd,</c:if>
@@ -108,9 +120,8 @@
 
 <br><br><br>
 
-<h3> Kloppen de gegevens?  <a href="plaatsGasten">Calculeer een optimale tafelschikking</a></h3>
-<h3> Zoniet, <a href="index"> pas de gegevens aan. </a></h3></strong> &nbsp; &nbsp;
-
+<a class="btn btn-warning" href="index" role="button">Pas de gegevens aan</a>
+<a class="btn btn-primary" href="plaatsGasten" role="button">Genereer de tafelschikking</a>
 
 <br>
 <!-- Hier is de footer -->	

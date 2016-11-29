@@ -4,7 +4,7 @@
 
 <form method="post" action="/maakGast">
 
-		<table>
+		<table class="table">
 			<!--  Rij 1 (de kopjes van de tabel)-->
 			<tr>
 				<th>Nummer</th>
@@ -31,7 +31,7 @@
 					<td><c:if test="${b.relatie == 0}"> familie </c:if>
 						<c:if test="${b.relatie == 1}"> vrienden </c:if>
 						<c:if test="${b.relatie == 2}"> collega's </c:if></td>	
-					<td><a href="deleteGast?id=${b.id}">verwijder</a></td>
+					<td><a class="btn btn-danger btn-xs" href="deleteGast?id=${b.id}" role="button">verwijder</a></td>
 				</tr>
 			</c:forEach>
 
@@ -57,7 +57,7 @@
 						<option value="1">vrienden</option>
 						<option value="2">collega's</option>
 				</select></td>
-				<td><input type="submit" value='Toevoegen'></td>
+				<td><input type="submit" value='Toevoegen' role="button" class="btn btn-success btn-xs"></td>
 			</tr>
 		</table>
 
