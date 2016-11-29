@@ -15,10 +15,8 @@
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" href="css/bootstrap-theme.min.css">
 <link rel="stylesheet" href="css/main.css">
-
 </head>
 <body>
-
 <!-- Dit is de navigatiebar -->
 	<%@include file="Navbar.jsp" %>
 
@@ -74,10 +72,8 @@
 			</c:forEach>
 	</table>
 
-
-
 <!-- Hier is de footer -->	
-<%@include file="OnzeFooter.jsp"%>
+<%@include file="Tafeltekening.jsp"%>
 </div>
 <div class="col-md-2"></div>
 </div>

@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class TableController {
@@ -100,6 +101,12 @@ public class TableController {
 		model.addAttribute("tafels", tafelRepo.findAllByOrderById());
 		return "Schikking";
 	}	
+	
+	@RequestMapping(value="alletafels")
+	public @ResponseBody Iterable<Tafel> alleTafels(){
+		return tafelRepo.findAllByOrderById();
+		
+	}
 		
 	@RequestMapping(value="/deleteGast")
 	public String deleteGast(long id, HttpServletResponse resp){
