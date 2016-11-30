@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class TableController {
@@ -101,6 +102,12 @@ public class TableController {
 		model.addAttribute("tafels", tafelRepo.findAllByOrderById());
 		return "Schikking";
 	}	
+	
+	@RequestMapping(value="alletafels")
+	public @ResponseBody Iterable<Tafel> alleTafels(){
+		return tafelRepo.findAllByOrderById();
+		
+	}
 		
 	@RequestMapping(value="/deleteGast")
 	public String deleteGast(long id, HttpServletResponse resp){
@@ -148,7 +155,7 @@ public class TableController {
 //		} else { /* throw error */ return "redirect:index";}
 	
 		int max_score = -10000;
-		int iterations = 10; 
+		int iterations = 200; 
 		
 		if (gastenRepo.count() > totaalStoelen){ 
 			// er zijn geen genoeg stoelen! geef melding
