@@ -71,6 +71,7 @@
 				<td><br></td>
 			</c:forEach>
 	</table>
+<a class="btn btn-primary" href="plaatsGasten" role="button">Klik hier voor een alternatieve tafelschikking</a>
 
 <!-- Hier is de footer -->	
 <%@include file="Tafeltekening.jsp"%>

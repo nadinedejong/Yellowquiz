@@ -105,8 +105,13 @@ public class TableController {
 	
 	@RequestMapping(value="alletafels")
 	public @ResponseBody Iterable<Tafel> alleTafels(){
-		return tafelRepo.findAllByOrderById();
-		
+		Iterable<Tafel> tafels = tafelRepo.findAllByOrderById();
+		for (Tafel t: tafels){
+			for (Gast g: t.getGasten()){
+				System.out.println("check "+ g.getNaam());
+			}
+		}
+		return tafelRepo.findAllByOrderById();		
 	}
 		
 	@RequestMapping(value="/deleteGast")
@@ -139,50 +144,50 @@ public class TableController {
 	@RequestMapping(value="/plaatsGasten")
 	public String plaatsGasten(Model model, HttpSession session){
 		model.addAttribute("gastenlijst", gastenRepo.findAllByOrderById());
-		model.addAttribute("tafels", tafelRepo.findAllByOrderById());
-		//maak lijst tafels en gasten 
-		Iterable<Tafel> tafels = tafelRepo.findAll();
+		model.addAttribute("tafels", tafelRepo.findAllByOrderById());	
+		Iterable<Tafel> tafels = tafelRepo.findAll(); //maak lijst tafels en gasten 
 		Iterable<Gast> gasten  = gastenRepo.findAll();
-	
+		int max_score = -1000000; 
+		int iterations = 500; //aantal simulaties		
 		int totaalStoelen=0; 
 		for (Tafel t: tafels){totaalStoelen += t.getStoelen();} //totaal aantal stoelen berekenen
-		Gast[] gastOpStoel = new Gast[totaalStoelen];
-		TafelSchikking ts = new TafelSchikking(totaalStoelen);
-		ts.setGastOpStoelMax(gastOpStoel);
+		Gast[] gastOpStoel = new Gast[totaalStoelen]; 
+		TafelSchikking ts = new TafelSchikking(totaalStoelen); //berekent kwaliteit tafelschikking en bewaart beste configuratie
+		ts.setGastOpStoelMax(gastOpStoel);		
+		VoorkeurenLijst voorkeuren = new VoorkeurenLijst(); //initialisatie klasse waar voorkeuren worden opgeslagen voor schikking 
+		if (session.getAttribute("voorkeuren") != null && session.getAttribute("voorkeuren") instanceof VoorkeurenLijst){
+			voorkeuren = (VoorkeurenLijst)session.getAttribute("voorkeuren");
+		} else {iterations=0;}	
 		
-//		if (session.getAttribute("voorkeuren") != null && session.getAttribute("voorkeuren") instanceof VoorkeurenLijst){
-			VoorkeurenLijst voorkeuren = (VoorkeurenLijst)session.getAttribute("voorkeuren");
-//		} else { /* throw error */ return "redirect:index";}
-	
-		int max_score = -10000;
-		int iterations = 200; 
-		
-		if (gastenRepo.count() > totaalStoelen){ 
-			// er zijn geen genoeg stoelen! geef melding
+		if (gastenRepo.count() > totaalStoelen){ // er zijn geen genoeg stoelen! geef melding
 			return "meerstoelen";
 		} else {  // plaats gasten RANDOMLY
-			for (int l = 0; l<iterations; l++){
-				System.out.println("ITERATIE "+l);		
-				clearIt(tafels, gasten, gastOpStoel);				
+			for (int l = 0; l<iterations; l++){	
+				System.out.println("Iteratie "+l);
+				clearIt(tafels, gasten, gastOpStoel); //lijsten leeggemaakt begin van iteratie			
 				int k = 0;	
-				for (Gast g: gasten){
-					gastOpStoel[k++]= g;
-				}
-				Collections.shuffle(Arrays.asList(gastOpStoel)); //genereer randomlijst met lengte aantal stoelen waar gasten op geplaatst worde					
-				
-				zetGastenAanTafels(gastOpStoel, tafels); //gasten worden random aan de tafels gezet
 				int score = 0;
-				score = ts.calcScore(tafels, voorkeuren);
+				for (Gast g: gasten){
+					gastOpStoel[k++]= g; 
+				}
+				Collections.shuffle(Arrays.asList(gastOpStoel)); //genereer randomlijst met lengte aantal stoelen waar gasten op geplaatst worden					
+				
+				zetGastenAanTafels(gastOpStoel, tafels); //gasten worden aan de tafels gezet				
+				score = ts.calcScore(tafels, voorkeuren); //kwaliteit schikking berekend aan de hand van voorkeuren
+				System.out.println("Score is "+score);
 				if (score > max_score){
 					max_score = score;
-					ts.setGastOpStoelMax(gastOpStoel); //configuratie met hoogste score wordt opgeslagen in Tafelschikking klasse
+					ts.setGastOpStoelMax(gastOpStoel); //configuratie met hoogste score wordt bewaard
+					for(int z=0; z<gastOpStoel.length; z++){
+						if (gastOpStoel[z] != null){
+							System.out.println(gastOpStoel[z].getNaam());
+						} else {System.out.println("nullo");}			
+					}
 				}
 			}
+			System.out.println("maxscore is "+max_score);
 			clearIt(tafels, gasten, gastOpStoel);
 			zetGastenAanTafels(ts.getGastOpStoelMax(), tafels); // configuratie met hoogste score wordt aan tafels gezet.
-			for (int i=0; i<ts.getGastOpStoelMax().length;i++){
-				if (ts.getGastOpStoelMax()[i] != null){System.out.println(ts.getGastOpStoelMax()[i].isVrouw());}
-			}
 		}
 		return "Schikking";
 	}
@@ -208,7 +213,7 @@ public class TableController {
 			g.setTafel(null);
 		}
 		for (int i = 0; i<gastOpStoel.length; i++){
-			gastOpStoel[i] = null; // empty is true
+			gastOpStoel[i] = null; 
 		}
 	}
 

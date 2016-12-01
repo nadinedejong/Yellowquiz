@@ -1,15 +1,15 @@
 package nl.youngcapital;
 
 public class VoorkeurenLijst {
-	private boolean manVrouw; //true is zelfde geslacht bij mekaar 
-	private boolean opLeeftijd; //true is zelfde leeftijd bij mekaar
-	private boolean interesse; //true is zelfde interesse bij mekaar
-	private boolean relatie; //true is gelijke relaties bij mekaar
+	private boolean manVrouw=true; //true is zelfde geslacht bij mekaar 
+	private boolean opLeeftijd=true; //true is zelfde leeftijd bij mekaar
+	private boolean interesse=true; //true is zelfde interesse bij mekaar
+	private boolean relatie=true; //true is gelijke relaties bij mekaar
 	
-	private int factManVrouw =1;
-	private int factOpLeeftijd =1;
-	private int factInteresse =1;
-	private int factRelatie =1;
+	private int factManVrouw =0;
+	private int factOpLeeftijd =0;
+	private int factInteresse =0;
+	private int factRelatie =0;
 	
 	public boolean isManVrouw() {
 		return manVrouw;

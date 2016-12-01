@@ -9,13 +9,13 @@
 <table class="table">
 	<tr> 
 		<th>Sorteeronderwerpen</th>
-		<th>Sorteren &nbsp;</th>
-		<th>niet meewegen &nbsp;</th>
-		<th>heel onbelangrijk &nbsp;</th>
-		<th>onbelangrijk &nbsp;</th>
+		<th> &nbsp;</th>
 		<th>neutraal &nbsp;</th>
-		<th>belangrijk &nbsp;</th>
-		<th>heel belangrijk &nbsp;</th>
+		<th>licht meewegen &nbsp;</th>
+		<th><---------------- &nbsp;</th>
+		<th>----------------- &nbsp;</th>
+		<th>----------------> &nbsp;</th>
+		<th>zwaar meewegen &nbsp;</th>
 	</tr>
 
 

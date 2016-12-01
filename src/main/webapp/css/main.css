@@ -45,7 +45,7 @@ div.panel.show {
     background-color: white;
    	opacity: .85;
    	background:rgba(255,255,255,0.10);
-    max-height: 500px; /* Whatever you like, as long as its more than the height of the content (on all screen sizes) */
+    max-height: 50000px; /* Whatever you like, as long as its more than the height of the content (on all screen sizes) */
 }
 
 button.accordion:after {

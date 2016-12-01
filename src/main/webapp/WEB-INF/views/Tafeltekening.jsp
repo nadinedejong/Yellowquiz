@@ -17,6 +17,7 @@
       }
      
 	function drawTables(data){
+		console.log(data);
 		var canvas = document.getElementById("canvas");
         var ctx = canvas.getContext("2d");	
         ctx.beginPath();
@@ -41,10 +42,6 @@
     function drawCircle(x, y, r, ctx) {
    		ctx.moveTo(x+r,y);
     	ctx.arc(x,y,r,0, 2*Math.PI,true);
-  //  	ctx.fillStyle = 'lightgreen';
-  //  	ctx.fill();
-  //  	ctx.lineWidth = 3;
-  //    ctx.strokeStyle = '#003300';
     }
     
   	function drawChairs(x_t, y_t, data, i, ctx){
@@ -55,7 +52,7 @@
 		for (; ang_s<2*Math.PI; ang_s+=ang, j++){
    			x_s = x_t + R*Math.cos(ang_s);
   			y_s = y_t + R*Math.sin(ang_s);
- 			drawCircle(x_s, y_s, 20, ctx);
+ 			drawCircle(x_s, y_s, r_s, ctx);
  			printName(x_s, y_s, data, i, j, ctx);
  		}
   	}  

@@ -43,10 +43,12 @@ public class TafelSchikking {
 		for (Tafel t: tafels){
 			List<Gast> gasten = t.getGasten();
 			while (i<(gasten.size()-1)){
-				score += gemengdManVrouw(gasten.get(i), gasten.get(i+1), voorkeuren);
-				score += opLeeftijd(gasten.get(i), gasten.get(i+1), voorkeuren);
-				score += opInteresse(gasten.get(i), gasten.get(i+1), voorkeuren);
-				score += opRelatie(gasten.get(i), gasten.get(i+1), voorkeuren);
+				Gast eerste = gasten.get(i);
+				Gast tweede = gasten.get(i+1);
+				score += gemengdManVrouw(eerste, tweede, voorkeuren);
+				score += opLeeftijd(eerste, tweede, voorkeuren);
+				score += opInteresse(eerste, tweede, voorkeuren);
+				score += opRelatie(eerste, tweede, voorkeuren);
 				i++;
 			}
 			if (t.getStoelen() > 2 && t.checkVol()){

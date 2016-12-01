@@ -10,8 +10,6 @@
 		</p>
 	</c:if>
 
-
-
 	<div <c:if test="${!empty events }">style="display: none"</c:if>
 		id="eventForm">
 		<form method="post" action="/aanpassenEvent">
