@@ -148,7 +148,7 @@ public class TableController {
 		Iterable<Tafel> tafels = tafelRepo.findAll(); //maak lijst tafels en gasten 
 		Iterable<Gast> gasten  = gastenRepo.findAll();
 		int max_score = -1000000; 
-		int iterations = 500; //aantal simulaties		
+		int iterations = 600; //aantal simulaties		
 		int totaalStoelen=0; 
 		for (Tafel t: tafels){totaalStoelen += t.getStoelen();} //totaal aantal stoelen berekenen
 		Gast[] gastOpStoel = new Gast[totaalStoelen]; 

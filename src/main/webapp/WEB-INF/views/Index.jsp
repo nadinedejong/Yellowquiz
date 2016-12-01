@@ -54,7 +54,7 @@
 
 	<p><i>Vul hieronder de gegevens in van jouw evenement. Maak een gastenlijst en een lijst van de 
 	   beschikbare tafels. Voer vervolgens jouw wensen in voor een ideale tafelschikking, zoals, 
-	   mannen of vrouwen gemengd? Familie bij mekaar en collega's aan een andere tafel, of juist
+	   mannen of vrouwen gemengd? Familie bij elkaar en collega's aan een andere tafel, of juist
 	   door elkaar?  Als alles klopt, klik je onderaan op de verzendknop. De ideale tafelschikking 
 	   voor het evenement wordt dan berekend.</i></p>
 

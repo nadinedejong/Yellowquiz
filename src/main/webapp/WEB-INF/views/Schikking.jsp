@@ -6,7 +6,15 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 
+<br><br><br>
+
 <title>Schikking</title>
+
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="js/forminput.js"></script><script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="js/forminput.js"></script>
 
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
@@ -15,6 +23,19 @@
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" href="css/bootstrap-theme.min.css">
 <link rel="stylesheet" href="css/main.css">
+
+
+<style>
+ 
+ html{
+  background: url('gedektetafel6.jpeg') no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  }
+</style>
+
 </head>
 <body>
 <!-- Dit is de navigatiebar -->
@@ -23,7 +44,7 @@
 	<div class="row">
 	<div class="col-md-2"></div>
 
-	<div class="col-md-8">
+	<div class="col-md-8 achtergrondkleur">
 
 <br><br><br>
 
@@ -34,7 +55,7 @@
 
 <h3>Overzicht:</h3>
 <br>
-	<table>
+	<table class="table">
 
 			<!--  Rij 2 t/m... (dus de ingevoerde gasten) -->
 			<c:forEach items="${ tafels }" var="t" varStatus="status">
@@ -71,10 +92,15 @@
 				<td><br></td>
 			</c:forEach>
 	</table>
-<a class="btn btn-primary" href="plaatsGasten" role="button">Klik hier voor een alternatieve tafelschikking</a>
 
-<!-- Hier is de footer -->	
+<a class="btn btn-primary" href="plaatsGasten" role="button">Klik hier voor een alternatieve tafelschikking</a>
+<!-- Hier is de tafeltekening -->	
 <%@include file="Tafeltekening.jsp"%>
+
+<br>
+<!-- Hier is de footer -->	
+<%@include file="OnzeFooter.jsp"%>
+
 </div>
 <div class="col-md-2"></div>
 </div>

@@ -73,7 +73,8 @@ public class TafelSchikking {
 		} else {
 			score +=1; 
 		}				
-		if (voorkeuren.isManVrouw()) {score *= -1;} // true is hogere score wanneer zelfde geslacht bij mekaar		
+		if (voorkeuren.isManVrouw()) {score *= -1;} // true is hogere score wanneer zelfde geslacht bij mekaar
+		
 		return voorkeuren.getFactManVrouw()*score; 
 	}
 	

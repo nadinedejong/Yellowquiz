@@ -27,8 +27,9 @@
 		while (i<data.length){
 			x_t = 1.5*r_t+j;
 			y_t = 1.5*r_t+k;
-			drawCircle(x_t, y_t, r_t, ctx);
-			drawChairs(x_t, y_t, data, i, ctx);
+			drawCircle(x_t, y_t, r_t, ctx); // tafel tekenen
+			printNumber(x_t, y_t, i, ctx); //tafelnummer printen
+			drawChairs(x_t, y_t, data, i, ctx); //stoelen tekenen
 			j += 4*r_t; 
 			i++;
 			if (i%3 ==0 && i !=0) {
@@ -39,21 +40,28 @@
 		ctx.stroke();
 	}
 	
+	function printNumber(x_t, y_t, i, ctx){
+		ctx.font="40px Verdana";
+  		ctx.fillStyle = 'grey';
+  		ctx.fillText(i+1, x_t, y_t);
+	}
+	
     function drawCircle(x, y, r, ctx) {
    		ctx.moveTo(x+r,y);
     	ctx.arc(x,y,r,0, 2*Math.PI,true);
     }
+
     
   	function drawChairs(x_t, y_t, data, i, ctx){
   		var aantalStoelen = data[i].stoelen;
-		var ang = 2*Math.PI/aantalStoelen;
+		var ang = 2*Math.PI/aantalStoelen; //stoelen staan hoek ang t.o.v. mekaar 
    		var ang_s=0, x_s, y_s, j=0;   	
 	
 		for (; ang_s<2*Math.PI; ang_s+=ang, j++){
    			x_s = x_t + R*Math.cos(ang_s);
-  			y_s = y_t + R*Math.sin(ang_s);
- 			drawCircle(x_s, y_s, r_s, ctx);
- 			printName(x_s, y_s, data, i, j, ctx);
+  			y_s = y_t + R*Math.sin(ang_s); // positie stoel berekenen
+ 			drawCircle(x_s, y_s, r_s, ctx); //stoel tekenen
+ 			printName(x_s, y_s, data, i, j, ctx); //naam gast op stoel printen
  		}
   	}  
   	
