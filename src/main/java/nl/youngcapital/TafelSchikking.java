@@ -9,6 +9,7 @@ public class TafelSchikking {
 	private List<Tafel> tafels = new ArrayList<>();
 	private Gast[] gastOpStoelMax;
 	
+	
 	public TafelSchikking(int totaalStoelen){
 		this.gastOpStoelMax = new Gast[totaalStoelen];
 	}

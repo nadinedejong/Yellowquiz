@@ -99,24 +99,36 @@
 <h3>Voorkeuren:</h3>
 <table class="table">
 	<tr> 
-		<td> <c:if test="${voorkeuren.manVrouw == true}"> Mannen en vrouwen apart,</c:if> 
-			 <c:if test="${voorkeuren.manVrouw == false}"> Mannen en vrouwen gemengd,</c:if>
-			met factor ${voorkeuren.factManVrouw}.</td>
+		<td> <c:if test="${voorkeuren.factManVrouw != 0 }">
+				<c:if test="${voorkeuren.manVrouw == true}"> Mannen en vrouwen apart,</c:if> 
+			 	<c:if test="${voorkeuren.manVrouw == false}"> Mannen en vrouwen gemengd,</c:if>
+				met factor ${voorkeuren.factManVrouw}.
+			</c:if>	
+		</td>
 	</tr>
 	<tr>
-		<td> <c:if test="${voorkeuren.opLeeftijd == true}"> Gelijke leeftijden bij elkaar,</c:if> 
-			 <c:if test="${voorkeuren.opLeeftijd == false}"> Leeftijden zoveel mogelijk gemixt,</c:if>
-			met factor ${voorkeuren.factOpLeeftijd}.</td>	
+		<td> <c:if test="${voorkeuren.factOpLeeftijd != 0 }">
+				<c:if test="${voorkeuren.opLeeftijd == true}"> Gelijke leeftijden bij elkaar,</c:if> 
+			 	<c:if test="${voorkeuren.opLeeftijd == false}"> Leeftijden zoveel mogelijk gemixt,</c:if>
+				met factor ${voorkeuren.factOpLeeftijd}.
+			 </c:if>	
+		</td>			
 	</tr>
 	<tr>
-		<td> <c:if test="${voorkeuren.interesse == true}"> Gelijke interesses bij elkaar,</c:if> 
-			 <c:if test="${voorkeuren.interesse == false}"> Interesses zoveel mogelijk gemixt,</c:if>
-			met factor ${voorkeuren.factInteresse}.</td>
+		<td> <c:if test="${voorkeuren.factInteresse != 0 }">
+				<c:if test="${voorkeuren.interesse == true}"> Gelijke interesses bij elkaar,</c:if> 
+			 	<c:if test="${voorkeuren.interesse == false}"> Interesses zoveel mogelijk gemixt,</c:if>
+				met factor ${voorkeuren.factInteresse}.
+			</c:if>
+		</td>
 	</tr>
 	<tr>
-		<td> <c:if test="${voorkeuren.relatie == true}"> Gelijke relaties bij elkaar,</c:if> 
-			 <c:if test="${voorkeuren.relatie == false}"> Relaties zoveel mogelijk gemixt,</c:if>
-			met factor ${voorkeuren.factRelatie}.</td>
+		<td> <c:if test="${voorkeuren.factRelatie != 0 }">
+				<c:if test="${voorkeuren.relatie == true}"> Gelijke relaties bij elkaar,</c:if> 
+			 	<c:if test="${voorkeuren.relatie == false}"> Relaties zoveel mogelijk gemixt,</c:if>
+					met factor ${voorkeuren.factRelatie}.
+			</c:if>
+		</td>
 	</tr>
 </table>
 
