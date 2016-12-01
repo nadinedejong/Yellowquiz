@@ -8,7 +8,7 @@ import java.util.List;
 public class TafelSchikking {
 	private List<Tafel> tafels = new ArrayList<>();
 	private Gast[] gastOpStoelMax;
-	
+	private int opRelatie, opInteresse, gemengdManVrouw, opLeeftijd;
 	
 	public TafelSchikking(int totaalStoelen){
 		this.gastOpStoelMax = new Gast[totaalStoelen];
